@@ -48,7 +48,7 @@ MainComponent::~MainComponent()
 }
 
 //==============================================================================
-void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
+void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate) // called first, and once only
 {
     // This function will be called when the audio device is started, or when its settings (i.e. sample rate, block size, etc) are changed.
 
@@ -77,7 +77,7 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
     resampleSource.prepareToPlay(samplesPerBlockExpected, sampleRate); // now need to get it to the audio system
 }
 
-void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill)
+void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill) // call after prepareToPlay, and called repeatedly (like 'draw')
 {
     // Your audio-processing code goes here!
 
@@ -103,12 +103,12 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
 
     // transportSource.getNextAudioBlock(bufferToFill);
     resampleSource.getNextAudioBlock(bufferToFill);
+    // DBG("getNextAudioBlock!");
 }
 
 void MainComponent::releaseResources()
 {
-    // This will be called when the audio device stops, or when it is being
-    // restarted due to a setting change.
+    // This will be called when the audio device stops, or when it is being restarted due to a setting change.
 
     // For more details, see the help for AudioProcessor::releaseResources()
 
@@ -119,13 +119,15 @@ void MainComponent::releaseResources()
 void MainComponent::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
+    // g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
+    g.fillAll(juce::Colour{ 62, 95, 138 } );
 
     // You can add your drawing code here!
-    g.setColour(juce::Colours::darkblue);
-    g.setFont(20.0f);
+    g.setColour(juce::Colours::navajowhite);
+    g.setFont(30.0f);
     g.drawText("Hello from Canada!", getLocalBounds(),
     juce::Justification::centred, true);
+    DBG("Paint!");
 }
 
 void MainComponent::resized()
