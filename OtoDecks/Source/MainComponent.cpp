@@ -139,7 +139,7 @@ void MainComponent::resized()
     DBG("MainComponent::resized");
 
     double rowHeight = getHeight() / 10;
-    double width = getWidth() - 20;
+    double width = (getWidth() - 40) / 2;
 
     playButton.setBounds(10, 10, width, rowHeight);
     stopButton.setBounds(10, 20 + (rowHeight), width, rowHeight);
@@ -157,6 +157,7 @@ void MainComponent::buttonClicked(juce::Button* button) // pointer to button; me
         // std::cout << "Play button has been clicked!" << std::endl;
         DBG("Play button has been clicked!");
         juce::Logger::outputDebugString("Play button!");
+        transportSource.setPosition(0);
         transportSource.start();
 
     }
