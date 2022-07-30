@@ -26,16 +26,19 @@ void DJAudio::prepareToPlay(int samplesPerBlockExpected, double sampleRate) // p
 {
     formatManager.registerBasicFormats();
     transportSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
+    resampleSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
 }
 
 void DJAudio::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill)
 {
-    transportSource.getNextAudioBlock(bufferToFill);
+    //transportSource.getNextAudioBlock(bufferToFill);
+    resampleSource.getNextAudioBlock(bufferToFill);
 }
 
 void DJAudio::releaseResources() // pure virtual function
 {
-    transportSource.releaseResources();
+    // transportSource.releaseResources();
+    resampleSource.releaseResources();
 }
 
 void DJAudio::loadURL(juce::URL audioURL)
@@ -52,17 +55,44 @@ void DJAudio::loadURL(juce::URL audioURL)
 
 void DJAudio::setGain(double gain)
 {
+    if (gain < 0 || gain > 1.0)
+    {
 
+    }
+    else
+    {
+        transportSource.setGain(gain);
+    }
 }
 
 void DJAudio::setSpeed(double ratio)
 {
+    if (ratio < 0 || ratio > 10.0)
+    {
 
+    }
+    else
+    {
+        resampleSource.setResamplingRatio(ratio);
+    }
 }
 
 void DJAudio::setPosition(double posInSecs)
 {
+    transportSource.setPosition(posInSecs);
+}
 
+void DJAudio::setPositionRelative(double pos)
+{
+    if (pos < 0 || pos > 1.0)
+    {
+
+    }
+    else
+    {
+        double posInSecs = transportSource.getLengthInSeconds() * pos;
+        setPosition(posInSecs);
+    }
 }
 
 void DJAudio::start()

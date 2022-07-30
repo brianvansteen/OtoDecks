@@ -25,6 +25,7 @@ public:
     void setGain(double gain);
     void setSpeed(double ratio);
     void setPosition(double posInSecs);
+    void setPositionRelative(double pos);
 
     void start();
     void stop();
@@ -37,4 +38,6 @@ private:
     std::unique_ptr<juce::AudioFormatReaderSource> readerSource; // to create on the fly, to read a file once the file is identified; need a 'smart pointer'
 
     juce::AudioTransportSource transportSource; // to control playback of audio, adjust the volume; NOT speed
+
+    juce::ResamplingAudioSource resampleSource{ &transportSource, false, 2 }; // wrapper to transport source to control the speed
 };

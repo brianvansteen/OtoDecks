@@ -27,6 +27,7 @@ MainComponent::MainComponent() // four classes: component, audio source, button 
 
     addAndMakeVisible(volSlider);
     addAndMakeVisible(speedSlider);
+    addAndMakeVisible(positionSlider);
 
     playButton.addListener(this); // register with button to receive click events; 'this' is pointer to itself; inherited from button listener
     stopButton.addListener(this);
@@ -37,6 +38,9 @@ MainComponent::MainComponent() // four classes: component, audio source, button 
 
     speedSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
     speedSlider.setRange(0.0, 2.0);
+
+    positionSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
+    positionSlider.setRange(0.0, 1.0);
 
     //keyPressed.addListener(this);
 }
@@ -152,6 +156,7 @@ void MainComponent::resized()
 
     volSlider.setBounds(10, 30 + (rowHeight * 2), width, rowHeight);
     speedSlider.setBounds(10, 30 + (rowHeight * 3), width, rowHeight);
+    positionSlider.setBounds(10, 30 + (rowHeight * 4), width, rowHeight);
 
     loadButton.setBounds(10, getHeight() - 80, width, rowHeight);
 }
@@ -163,8 +168,9 @@ void MainComponent::buttonClicked(juce::Button* button) // pointer to button; me
         // std::cout << "Play button has been clicked!" << std::endl;
         DBG("Play button has been clicked!");
         juce::Logger::outputDebugString("Play button!");
-        transportSource.setPosition(0);
+        // transportSource.setPosition(0);
         // transportSource.start();
+        player1.setPosition(0);
         player1.start();
 
     }
@@ -193,25 +199,32 @@ void MainComponent::sliderValueChanged(juce::Slider* slider)
     if (slider == &volSlider)
     {
         DBG("Volume slider moved: " << slider->getValue());
-        transportSource.setGain(slider->getValue());
+        // transportSource.setGain(slider->getValue());
         // dphase = volSlider.getValue() * 0.001;
         // juce::Logger::outputDebugString(slider->getValue());
+        player1.setGain(slider->getValue());
     }
     else if (slider == &speedSlider)
     {
         DBG("Speed slider moved: " << slider->getValue());
-        resampleSource.setResamplingRatio(slider->getValue());
+        // resampleSource.setResamplingRatio(slider->getValue());
+        player1.setSpeed(slider->getValue());
     }
-}
-
-void MainComponent::loadURL(juce::URL audioURL)
-{
-    auto* reader = formatManager.createReaderFor(audioURL.createInputStream(false)); // unpack audio URL and converted to input stream, and creates a reader
-    if (reader != nullptr) // file is accessible
+    else if (slider == &positionSlider)
     {
-        std::unique_ptr<juce::AudioFormatReaderSource> newSource(new juce::AudioFormatReaderSource(reader, true)); // create audio format reader source, when file is read
-        transportSource.setSource(newSource.get(), 0, nullptr, reader->sampleRate); // control playback of audio
-        readerSource.reset(newSource.release()); // transfer ownership to class variable
-
+        DBG("Position slider: " << slider->getValue());
+        player1.setPositionRelative(slider->getValue());
     }
 }
+
+//void MainComponent::loadURL(juce::URL audioURL)
+//{
+//    auto* reader = formatManager.createReaderFor(audioURL.createInputStream(false)); // unpack audio URL and converted to input stream, and creates a reader
+//    if (reader != nullptr) // file is accessible
+//    {
+//        std::unique_ptr<juce::AudioFormatReaderSource> newSource(new juce::AudioFormatReaderSource(reader, true)); // create audio format reader source, when file is read
+//        transportSource.setSource(newSource.get(), 0, nullptr, reader->sampleRate); // control playback of audio
+//        readerSource.reset(newSource.release()); // transfer ownership to class variable
+//
+//    }
+//}

@@ -45,24 +45,25 @@ private:
 
     juce::Slider volSlider;
     juce::Slider speedSlider;
+    juce::Slider positionSlider;
 
-    juce::Random rand;
+    // juce::Random rand;
 
-    double phase;
-    double dphase;
+    //double phase;
+    //double dphase;
 
     // AudioFormatManager: responsible for knowing about different audio formats (i.e. decompression, channels), and how to play the file, sends to AudioFormatReader interface
-    juce::AudioFormatManager formatManager; // first layer of onion to work with different audio file formats
+    //juce::AudioFormatManager formatManager; // first layer of onion to work with different audio file formats
 
-    // AudioFormatReader object, base-level file reader; generic reader
-    
-    std::unique_ptr<juce::AudioFormatReaderSource> readerSource; // to create on the fly, to read a file once the file is identified; need a 'smart pointer'
-    
-    juce::AudioTransportSource transportSource; // to control playback of audio, adjust the volume; NOT speed
-    
-    juce::ResamplingAudioSource resampleSource{&transportSource, false, 2 }; // wrapper to transport source to control the speed
+    //// AudioFormatReader object, base-level file reader; generic reader
+    //
+    //std::unique_ptr<juce::AudioFormatReaderSource> readerSource; // to create on the fly, to read a file once the file is identified; need a 'smart pointer'
+    //
+    //juce::AudioTransportSource transportSource; // to control playback of audio, adjust the volume; NOT speed
+    //
+    //juce::ResamplingAudioSource resampleSource{&transportSource, false, 2 }; // wrapper to transport source to control the speed
 
-    void loadURL(juce::URL audioURL);
+    // void loadURL(juce::URL audioURL);
     juce::FileChooser fChooser{ "Select a file..." };
 
     DJAudio player1;
