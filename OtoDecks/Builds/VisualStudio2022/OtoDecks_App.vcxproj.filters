@@ -571,6 +571,9 @@
     <ClCompile Include="..\..\Source\Main.cpp">
       <Filter>OtoDecks\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\DJaudio.cpp">
+      <Filter>OtoDecks\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\MainComponent.cpp">
       <Filter>OtoDecks\Source</Filter>
     </ClCompile>
@@ -2856,6 +2859,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\DJaudio.h">
+      <Filter>OtoDecks\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\MainComponent.h">
       <Filter>OtoDecks\Source</Filter>
     </ClInclude>

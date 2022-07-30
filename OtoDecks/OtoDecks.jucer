@@ -5,6 +5,8 @@
   <MAINGROUP id="gIAIyc" name="OtoDecks">
     <GROUP id="{4F4F35DF-C5A0-B87B-F061-116AC1E31412}" name="Source">
       <FILE id="BMTVT5" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="yC3l6n" name="DJaudio.cpp" compile="1" resource="0" file="Source/DJaudio.cpp"/>
+      <FILE id="pFG93E" name="DJaudio.h" compile="0" resource="0" file="Source/DJaudio.h"/>
       <FILE id="vLuoDN" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="L3P2mb" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
