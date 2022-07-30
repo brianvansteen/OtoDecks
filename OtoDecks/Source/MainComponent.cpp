@@ -56,10 +56,12 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
 
     // For more details, see the help for AudioProcessor::prepareToPlay()
 
-    phase = 0.0;
-    dphase = 0.0001;
+    player1.prepareToPlay(samplesPerBlockExpected, sampleRate); // DJAudio now responsible for filling up the block (instead of filling it up from the transportSource
 
-    formatManager.registerBasicFormats(); // register audio formats to read files
+    //phase = 0.0;
+    //dphase = 0.0001;
+
+    // formatManager.registerBasicFormats(); // register audio formats to read files
 
     //juce::URL audioURL{ "file:///C:\\Users\\bvans\\Desktop\\Technology\\University-of-London\\Level5\\Session3\\OOP\\Week14\\tracks\\electro_smash.mp3" };
 
@@ -72,9 +74,9 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
     //    transportSource.start();
     //}
 
-    transportSource.prepareToPlay(samplesPerBlockExpected, sampleRate); // now need to get it to the audio system
+    //transportSource.prepareToPlay(samplesPerBlockExpected, sampleRate); // now need to get it to the audio system
 
-    resampleSource.prepareToPlay(samplesPerBlockExpected, sampleRate); // now need to get it to the audio system
+    //resampleSource.prepareToPlay(samplesPerBlockExpected, sampleRate); // now need to get it to the audio system
 }
 
 void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill) // call after prepareToPlay, and called repeatedly (like 'draw')
@@ -85,6 +87,8 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
 
     // Right now we are not producing any data, in which case we need to clear the buffer (to prevent the output of random noise)
     
+    player1.getNextAudioBlock(bufferToFill);
+
     // bufferToFill.clearActiveBufferRegion();
 
     //auto* leftChannel = bufferToFill.buffer->getWritePointer(0, bufferToFill.startSample);
@@ -102,7 +106,7 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
     //}
 
     // transportSource.getNextAudioBlock(bufferToFill);
-    resampleSource.getNextAudioBlock(bufferToFill);
+    // resampleSource.getNextAudioBlock(bufferToFill);
     // DBG("getNextAudioBlock!");
 }
 
@@ -112,7 +116,9 @@ void MainComponent::releaseResources()
 
     // For more details, see the help for AudioProcessor::releaseResources()
 
-    transportSource.releaseResources();
+    player1.releaseResources();
+
+    //transportSource.releaseResources();
 }
 
 //==============================================================================
@@ -158,7 +164,8 @@ void MainComponent::buttonClicked(juce::Button* button) // pointer to button; me
         DBG("Play button has been clicked!");
         juce::Logger::outputDebugString("Play button!");
         transportSource.setPosition(0);
-        transportSource.start();
+        // transportSource.start();
+        player1.start();
 
     }
     else if (button == &stopButton)
@@ -166,7 +173,8 @@ void MainComponent::buttonClicked(juce::Button* button) // pointer to button; me
         // std::cout << "Stop button has been clicked!" << std::endl;
         DBG("Stop button has been clicked!");
         juce::Logger::outputDebugString("Stop button!");
-        transportSource.stop();
+        // transportSource.stop();
+        player1.stop();
 
     }
     else if (button == &loadButton)
@@ -175,7 +183,7 @@ void MainComponent::buttonClicked(juce::Button* button) // pointer to button; me
         fChooser.launchAsync(fileChooserFlags, [this](const juce::FileChooser& chooser)
             {
                 juce::File chosenFile = chooser.getResult();
-                loadURL(juce::URL{ chosenFile });
+                player1.loadURL(juce::URL{ chosenFile });
             });
     }
 }
