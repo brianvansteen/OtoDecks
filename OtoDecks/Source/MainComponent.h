@@ -71,8 +71,9 @@ private:
     juce::FileChooser fChooser{ "Select a file..." };
 
     DJAudio player1; // set player1 object of DJAudio class
-    DeckGUI deckGUI1;
-    DeckGUI deckGUI2;
+    DJAudio player2; // 
+    DeckGUI deckGUI1{&player1}; // DeckGUI has to DJAudio to control it
+    DeckGUI deckGUI2{&player2};
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };
