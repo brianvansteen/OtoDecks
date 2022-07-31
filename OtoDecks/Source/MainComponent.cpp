@@ -21,35 +21,38 @@ MainComponent::MainComponent() // four classes: component, audio source, button 
         setAudioChannels(2, 2);
     }
 
-    addAndMakeVisible(playButton);
-    addAndMakeVisible(stopButton);
-    addAndMakeVisible(loadButton);
+    addAndMakeVisible(deckGUI1);
+    addAndMakeVisible(deckGUI2);
 
-    addAndMakeVisible(volSlider);
-    addAndMakeVisible(speedSlider);
-    addAndMakeVisible(positionSlider);
+    //addAndMakeVisible(playButton);
+    //addAndMakeVisible(stopButton);
+    //addAndMakeVisible(loadButton);
 
-    playButton.addListener(this); // register with button to receive click events; 'this' is pointer to itself; inherited from button listener
-    stopButton.addListener(this);
-    loadButton.addListener(this);
+    //addAndMakeVisible(volSlider);
+    //addAndMakeVisible(speedSlider);
+    //addAndMakeVisible(positionSlider);
 
-    volSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
-    volSlider.setRange(0.0, 1.0);
-    addAndMakeVisible(volLabel);
-    volLabel.setText("Volume", juce::dontSendNotification);
-    volLabel.attachToComponent(&volSlider, true);
+    //playButton.addListener(this); // register with button to receive click events; 'this' is pointer to itself; inherited from button listener
+    //stopButton.addListener(this);
+    //loadButton.addListener(this);
 
-    speedSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
-    speedSlider.setRange(0.0, 2.0);
-    addAndMakeVisible(speedLabel);
-    speedLabel.setText("Speed", juce::dontSendNotification);
-    speedLabel.attachToComponent(&speedSlider, true);
+    //volSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
+    //volSlider.setRange(0.0, 1.0);
+    //addAndMakeVisible(volLabel);
+    //volLabel.setText("Volume", juce::dontSendNotification);
+    //volLabel.attachToComponent(&volSlider, true);
 
-    positionSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
-    positionSlider.setRange(0.0, 1.0);
-    addAndMakeVisible(positionLabel);
-    positionLabel.setText("Position", juce::dontSendNotification);
-    positionLabel.attachToComponent(&positionSlider, true);
+    //speedSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
+    //speedSlider.setRange(0.0, 2.0);
+    //addAndMakeVisible(speedLabel);
+    //speedLabel.setText("Speed", juce::dontSendNotification);
+    //speedLabel.attachToComponent(&speedSlider, true);
+
+    //positionSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
+    //positionSlider.setRange(0.0, 1.0);
+    //addAndMakeVisible(positionLabel);
+    //positionLabel.setText("Position", juce::dontSendNotification);
+    //positionLabel.attachToComponent(&positionSlider, true);
 
     //keyPressed.addListener(this);
 }
@@ -156,75 +159,78 @@ void MainComponent::resized()
     // update their positions.
 
     DBG("MainComponent::resized");
+    
+    deckGUI1.setBounds(0, 0, getWidth() / 2, getHeight());
+    deckGUI2.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight());
 
-    double rowHeight = getHeight() / 10;
-    double width = (getWidth() - 20) / 2;
-    auto sliderLeft = 80;
+    //double rowHeight = getHeight() / 10;
+    //double width = (getWidth() - 20) / 2;
+    //auto sliderLeft = 80;
 
-    playButton.setBounds(10, 10, width, rowHeight);
-    stopButton.setBounds(10, 20 + (rowHeight), width, rowHeight);
+    //playButton.setBounds(10, 10, width, rowHeight);
+    //stopButton.setBounds(10, 20 + (rowHeight), width, rowHeight);
 
-    volSlider.setBounds(sliderLeft, 30 + (rowHeight * 2), width - sliderLeft - 10, rowHeight);
-    speedSlider.setBounds(sliderLeft, 30 + (rowHeight * 3), width - sliderLeft - 10, rowHeight);
-    positionSlider.setBounds(sliderLeft, 30 + (rowHeight * 4), width - sliderLeft - 10, rowHeight);
+    //volSlider.setBounds(sliderLeft, 30 + (rowHeight * 2), width - sliderLeft - 10, rowHeight);
+    //speedSlider.setBounds(sliderLeft, 30 + (rowHeight * 3), width - sliderLeft - 10, rowHeight);
+    //positionSlider.setBounds(sliderLeft, 30 + (rowHeight * 4), width - sliderLeft - 10, rowHeight);
 
-    loadButton.setBounds(10, getHeight() - 80, width, rowHeight);
+    //loadButton.setBounds(10, getHeight() - 80, width, rowHeight);
 }
 
 void MainComponent::buttonClicked(juce::Button* button) // pointer to button; memory address
 {
-    if (button == &playButton) // button to start audio file play
-    {
-        // std::cout << "Play button has been clicked!" << std::endl;
-        DBG("Play button has been clicked!");
-        juce::Logger::outputDebugString("Play button!");
-        // transportSource.setPosition(0);
-        // transportSource.start();
-        player1.setPosition(0);
-        player1.start();
+    //if (button == &playButton) // button to start audio file play
+    //{
+    //    // std::cout << "Play button has been clicked!" << std::endl;
+    //    DBG("Play button has been clicked!");
+    //    juce::Logger::outputDebugString("Play button!");
+    //    // transportSource.setPosition(0);
+    //    // transportSource.start();
+    //    player1.setPosition(0);
+    //    player1.start();
 
-    }
-    else if (button == &stopButton) // button to stop audio file play
-    {
-        // std::cout << "Stop button has been clicked!" << std::endl;
-        DBG("Stop button has been clicked!");
-        juce::Logger::outputDebugString("Stop button!");
-        // transportSource.stop();
-        player1.stop();
+    //}
+    //else if (button == &stopButton) // button to stop audio file play
+    //{
+    //    // std::cout << "Stop button has been clicked!" << std::endl;
+    //    DBG("Stop button has been clicked!");
+    //    juce::Logger::outputDebugString("Stop button!");
+    //    // transportSource.stop();
+    //    player1.stop();
 
-    }
-    else if (button == &loadButton) // button to load new audio file
-    {
-        auto fileChooserFlags = juce::FileBrowserComponent::canSelectFiles;
-        fChooser.launchAsync(fileChooserFlags, [this](const juce::FileChooser& chooser)
-            {
-                juce::File chosenFile = chooser.getResult();
-                player1.loadURL(juce::URL{ chosenFile });
-            });
-    }
+    //}
+    //else if (button == &loadButton) // button to load new audio file
+    //{
+    //    auto fileChooserFlags = juce::FileBrowserComponent::canSelectFiles;
+    //    fChooser.launchAsync(fileChooserFlags, [this](const juce::FileChooser& chooser)
+    //        {
+    //            juce::File chosenFile = chooser.getResult();
+    //            player1.loadURL(juce::URL{ chosenFile });
+    //        });
+    //}
 }
 
 void MainComponent::sliderValueChanged(juce::Slider* slider)
 {
-    if (slider == &volSlider)
-    {
-        DBG("Volume slider moved: " << slider->getValue());
-        // transportSource.setGain(slider->getValue());
-        // dphase = volSlider.getValue() * 0.001;
-        // juce::Logger::outputDebugString(slider->getValue());
-        player1.setGain(slider->getValue());
-    }
-    else if (slider == &speedSlider)
-    {
-        DBG("Speed slider moved: " << slider->getValue());
-        // resampleSource.setResamplingRatio(slider->getValue());
-        player1.setSpeed(slider->getValue());
-    }
-    else if (slider == &positionSlider)
-    {
-        DBG("Position slider: " << slider->getValue());
-        player1.setPositionRelative(slider->getValue());
-    }
+    //if (slider == &volSlider)
+    //{
+    //    DBG("Volume slider moved: " << slider->getValue());
+    //    // transportSource.setGain(slider->getValue());
+    //    // dphase = volSlider.getValue() * 0.001;
+    //    // juce::Logger::outputDebugString(slider->getValue());
+    //    player1.setGain(slider->getValue());
+    //}
+    //else if (slider == &speedSlider)
+    //{
+    //    DBG("Speed slider moved: " << slider->getValue());
+    //    // resampleSource.setResamplingRatio(slider->getValue());
+    //    player1.setSpeed(slider->getValue());
+    //}
+    //else if (slider == &positionSlider)
+    //{
+    //    DBG("Position slider: " << slider->getValue());
+    //    player1.setPositionRelative(slider->getValue());
+    //}
 }
 
 //void MainComponent::loadURL(juce::URL audioURL)
