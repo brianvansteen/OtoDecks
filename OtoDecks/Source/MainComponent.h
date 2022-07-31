@@ -44,8 +44,11 @@ private:
     juce::TextButton loadButton{"LOAD AUDIO" };
 
     juce::Slider volSlider;
+    juce::Label volLabel;
     juce::Slider speedSlider;
+    juce::Label speedLabel;
     juce::Slider positionSlider;
+    juce::Label positionLabel;
 
     // juce::Random rand;
 
@@ -66,7 +69,7 @@ private:
     // void loadURL(juce::URL audioURL);
     juce::FileChooser fChooser{ "Select a file..." };
 
-    DJAudio player1;
+    DJAudio player1; // set player1 object of DJAudio class
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

@@ -11,7 +11,6 @@
 #include "DJaudio.h"
 
 
-
 DJAudio::DJAudio()
 {
 
@@ -24,12 +23,12 @@ DJAudio::~DJAudio()
 
 void DJAudio::prepareToPlay(int samplesPerBlockExpected, double sampleRate) // pure virtual function
 {
-    formatManager.registerBasicFormats();
+    formatManager.registerBasicFormats(); // ensures audio system knows about the basic audio formats
     transportSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
     resampleSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
 }
 
-void DJAudio::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill)
+void DJAudio::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill) // pure virtual function
 {
     //transportSource.getNextAudioBlock(bufferToFill);
     resampleSource.getNextAudioBlock(bufferToFill);
@@ -41,7 +40,7 @@ void DJAudio::releaseResources() // pure virtual function
     resampleSource.releaseResources();
 }
 
-void DJAudio::loadURL(juce::URL audioURL)
+void DJAudio::loadURL(juce::URL audioURL) // select audio file to play
 {
     auto* reader = formatManager.createReaderFor(audioURL.createInputStream(false)); // unpack audio URL and converted to input stream, and creates a reader
     if (reader != nullptr) // file is accessible
@@ -82,7 +81,7 @@ void DJAudio::setPosition(double posInSecs)
     transportSource.setPosition(posInSecs);
 }
 
-void DJAudio::setPositionRelative(double pos)
+void DJAudio::setPositionRelative(double pos) // between 0 and 1; i.e. 0 - 100% of any length audio file
 {
     if (pos < 0 || pos > 1.0)
     {
@@ -90,7 +89,7 @@ void DJAudio::setPositionRelative(double pos)
     }
     else
     {
-        double posInSecs = transportSource.getLengthInSeconds() * pos;
+        double posInSecs = transportSource.getLengthInSeconds() * pos; // pos of 0 - 1 applied to length of audio file in seconds
         setPosition(posInSecs);
     }
 }

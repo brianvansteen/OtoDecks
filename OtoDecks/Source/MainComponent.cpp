@@ -35,12 +35,21 @@ MainComponent::MainComponent() // four classes: component, audio source, button 
 
     volSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
     volSlider.setRange(0.0, 1.0);
+    addAndMakeVisible(volLabel);
+    volLabel.setText("Volume", juce::dontSendNotification);
+    volLabel.attachToComponent(&volSlider, true);
 
     speedSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
     speedSlider.setRange(0.0, 2.0);
+    addAndMakeVisible(speedLabel);
+    speedLabel.setText("Speed", juce::dontSendNotification);
+    speedLabel.attachToComponent(&speedSlider, true);
 
     positionSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
     positionSlider.setRange(0.0, 1.0);
+    addAndMakeVisible(positionLabel);
+    positionLabel.setText("Position", juce::dontSendNotification);
+    positionLabel.attachToComponent(&positionSlider, true);
 
     //keyPressed.addListener(this);
 }
@@ -149,21 +158,22 @@ void MainComponent::resized()
     DBG("MainComponent::resized");
 
     double rowHeight = getHeight() / 10;
-    double width = (getWidth() - 40) / 2;
+    double width = (getWidth() - 20) / 2;
+    auto sliderLeft = 80;
 
     playButton.setBounds(10, 10, width, rowHeight);
     stopButton.setBounds(10, 20 + (rowHeight), width, rowHeight);
 
-    volSlider.setBounds(10, 30 + (rowHeight * 2), width, rowHeight);
-    speedSlider.setBounds(10, 30 + (rowHeight * 3), width, rowHeight);
-    positionSlider.setBounds(10, 30 + (rowHeight * 4), width, rowHeight);
+    volSlider.setBounds(sliderLeft, 30 + (rowHeight * 2), width - sliderLeft - 10, rowHeight);
+    speedSlider.setBounds(sliderLeft, 30 + (rowHeight * 3), width - sliderLeft - 10, rowHeight);
+    positionSlider.setBounds(sliderLeft, 30 + (rowHeight * 4), width - sliderLeft - 10, rowHeight);
 
     loadButton.setBounds(10, getHeight() - 80, width, rowHeight);
 }
 
 void MainComponent::buttonClicked(juce::Button* button) // pointer to button; memory address
 {
-    if (button == &playButton)
+    if (button == &playButton) // button to start audio file play
     {
         // std::cout << "Play button has been clicked!" << std::endl;
         DBG("Play button has been clicked!");
@@ -174,7 +184,7 @@ void MainComponent::buttonClicked(juce::Button* button) // pointer to button; me
         player1.start();
 
     }
-    else if (button == &stopButton)
+    else if (button == &stopButton) // button to stop audio file play
     {
         // std::cout << "Stop button has been clicked!" << std::endl;
         DBG("Stop button has been clicked!");
@@ -183,7 +193,7 @@ void MainComponent::buttonClicked(juce::Button* button) // pointer to button; me
         player1.stop();
 
     }
-    else if (button == &loadButton)
+    else if (button == &loadButton) // button to load new audio file
     {
         auto fileChooserFlags = juce::FileBrowserComponent::canSelectFiles;
         fChooser.launchAsync(fileChooserFlags, [this](const juce::FileChooser& chooser)

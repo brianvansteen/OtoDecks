@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    DJaudio.h
+    DJaudio.h definition file
     Created: 30 Jul 2022 9:26:41am
     Author:  bvans
 
@@ -11,24 +11,24 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class DJAudio : public juce::AudioSource
+class DJAudio : public juce::AudioSource // DJAudio is inheriting from AudioSource
 {
 public:
 
     DJAudio();
     ~DJAudio();
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override; // pure virtual function
-    void getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill) override;
-    void releaseResources() override; // pure virtual function
+    void getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill) override; // pure virtual function
+    void releaseResources() override; // pure virtual function 
 
-    void loadURL(juce::URL audioURL);
-    void setGain(double gain);
-    void setSpeed(double ratio);
-    void setPosition(double posInSecs);
-    void setPositionRelative(double pos);
+    void loadURL(juce::URL audioURL); // load audio file
+    void setGain(double gain); // set playback volume
+    void setSpeed(double ratio); // set playback speed
+    void setPosition(double posInSecs); // set playback position of the audio file
+    void setPositionRelative(double pos); // set playback relative position of the audio file; i.e. 0 - 100% of any length audio file
 
-    void start();
-    void stop();
+    void start(); // start playback
+    void stop(); // stop playback
 
 private:
 
