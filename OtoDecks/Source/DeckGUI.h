@@ -16,7 +16,7 @@
 //==============================================================================
 /*
 */
-class DeckGUI  : public juce::Component, public juce::Button::Listener, public juce::Slider::Listener
+class DeckGUI  : public juce::Component, public juce::Button::Listener, public juce::Slider::Listener, public juce::FileDragAndDropTarget
 
 {
 public:
@@ -29,6 +29,9 @@ public:
     void buttonClicked(juce::Button*) override; // function to implement Button::Listener; called when button clicked
 
     void sliderValueChanged(juce::Slider* slider) override; // function to implement Slider::Listener
+
+    bool isInterestedInFileDrag (const juce::StringArray& files) override;
+    void filesDropped (const juce::StringArray& files, int, int y) override;
 
 private:
 

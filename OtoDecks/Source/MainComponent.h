@@ -12,9 +12,9 @@
 
 // main component inherits from audioAppComponent; built-on component, inherits from component class (GUI) and audio class
 
-class MainComponent : public juce::AudioAppComponent,
-                        public juce::Button::Listener,
-                        public juce::Slider::Listener
+class MainComponent : public juce::AudioAppComponent
+                        //public juce::Button::Listener,
+                        //public juce::Slider::Listener
 {
 public:
     //==============================================================================
@@ -32,9 +32,9 @@ public:
     void paint(juce::Graphics& g) override; // not pure virtual function; do not need to provide implementation
     void resized() override; // not pure virtual function; do not need to provide implementation
 
-    void buttonClicked(juce::Button*) override; // function to implement Button::Listener; called when button clicked
+    //void buttonClicked(juce::Button*) override; // function to implement Button::Listener; called when button clicked
 
-    void sliderValueChanged(juce::Slider* slider) override; // function to implement Slider::Listener
+    //void sliderValueChanged(juce::Slider* slider) override; // function to implement Slider::Listener
 
 private:
     //==============================================================================
@@ -74,6 +74,8 @@ private:
     DJAudio player2; // 
     DeckGUI deckGUI1{&player1}; // DeckGUI has to DJAudio to control it
     DeckGUI deckGUI2{&player2};
+
+    juce::MixerAudioSource mixerSource;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

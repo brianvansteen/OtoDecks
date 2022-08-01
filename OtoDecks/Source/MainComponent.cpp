@@ -73,6 +73,11 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
     // For more details, see the help for AudioProcessor::prepareToPlay()
 
     player1.prepareToPlay(samplesPerBlockExpected, sampleRate); // DJAudio now responsible for filling up the block (instead of filling it up from the transportSource
+    player2.prepareToPlay(samplesPerBlockExpected, sampleRate); // DJAudio now responsible for filling up the block (instead of filling it up from the transportSource
+    
+    mixerSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
+    mixerSource.addInputSource(&player1, false);
+    mixerSource.addInputSource(&player2, false);
 
     //phase = 0.0;
     //dphase = 0.0001;
@@ -103,8 +108,8 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
 
     // Right now we are not producing any data, in which case we need to clear the buffer (to prevent the output of random noise)
     
-    player1.getNextAudioBlock(bufferToFill);
-
+    mixerSource.getNextAudioBlock(bufferToFill);
+    
     // bufferToFill.clearActiveBufferRegion();
 
     //auto* leftChannel = bufferToFill.buffer->getWritePointer(0, bufferToFill.startSample);
@@ -133,6 +138,8 @@ void MainComponent::releaseResources()
     // For more details, see the help for AudioProcessor::releaseResources()
 
     player1.releaseResources();
+    player2.releaseResources();
+    mixerSource.releaseResources();
 
     //transportSource.releaseResources();
 }
@@ -177,8 +184,8 @@ void MainComponent::resized()
     //loadButton.setBounds(10, getHeight() - 80, width, rowHeight);
 }
 
-void MainComponent::buttonClicked(juce::Button* button) // pointer to button; memory address
-{
+//void MainComponent::buttonClicked(juce::Button* button) // pointer to button; memory address
+//{
     //if (button == &playButton) // button to start audio file play
     //{
     //    // std::cout << "Play button has been clicked!" << std::endl;
@@ -208,10 +215,10 @@ void MainComponent::buttonClicked(juce::Button* button) // pointer to button; me
     //            player1.loadURL(juce::URL{ chosenFile });
     //        });
     //}
-}
+//}
 
-void MainComponent::sliderValueChanged(juce::Slider* slider)
-{
+//void MainComponent::sliderValueChanged(juce::Slider* slider)
+//{
     //if (slider == &volSlider)
     //{
     //    DBG("Volume slider moved: " << slider->getValue());
@@ -231,7 +238,7 @@ void MainComponent::sliderValueChanged(juce::Slider* slider)
     //    DBG("Position slider: " << slider->getValue());
     //    player1.setPositionRelative(slider->getValue());
     //}
-}
+//}
 
 //void MainComponent::loadURL(juce::URL audioURL)
 //{
