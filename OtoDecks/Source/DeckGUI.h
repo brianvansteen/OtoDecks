@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "DJaudio.h" // to know about this class
+#include "WaveformDisplay.h"
 
 //==============================================================================
 /*
@@ -49,6 +50,8 @@ private:
     juce::FileChooser fChooser{ "Select a file..." };
 
     DJAudio* player; // DeckGUI is unaware of DJAudio player; when receive events from buttons, how to send events on to DJAudio player; so need reference with pointer
+
+    WaveformDisplay waveFormDisplay; // add instace of waveform class; WaveformDisplay sits inside of DeckGUI, and DeckGUI sits inside of MainComponent
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeckGUI)
 };

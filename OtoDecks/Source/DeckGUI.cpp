@@ -24,6 +24,8 @@ DeckGUI::DeckGUI(DJAudio* _player) : player(_player) // pass _player variable in
     addAndMakeVisible(speedSlider);
     addAndMakeVisible(positionSlider);
 
+    addAndMakeVisible(waveFormDisplay);
+
     playButton.addListener(this); // register with button to receive click events; 'this' is pointer to itself; inherited from button listener
     stopButton.addListener(this);
     loadButton.addListener(this);
@@ -86,6 +88,8 @@ void DeckGUI::resized()
     volSlider.setBounds(sliderLeft, 50 + (rowHeight * 2), width - sliderLeft - 10, rowHeight);
     speedSlider.setBounds(sliderLeft, 50 + (rowHeight * 3), width - sliderLeft - 10, rowHeight);
     positionSlider.setBounds(sliderLeft, 50 + (rowHeight * 4), width - sliderLeft - 10, rowHeight);
+
+    waveFormDisplay.setBounds(10, 60 + (rowHeight * 5), width, rowHeight * 2);
 
     loadButton.setBounds(10, getHeight() - 80, width, rowHeight);
 
