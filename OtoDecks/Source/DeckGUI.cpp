@@ -12,7 +12,11 @@
 #include "DeckGUI.h"
 
 //==============================================================================
-DeckGUI::DeckGUI(DJAudio* _player) : player(_player) // pass _player variable into player object; so DeckGUI has access to player
+DeckGUI::DeckGUI(DJAudio* _player, juce::AudioFormatManager& formatManagerToUse, juce::AudioThumbnailCache& cacheToUse) : player(_player), waveFormDisplay(formatManagerToUse, cacheToUse)
+// pass _player variable into player object; so DeckGUI has access to player
+// different way to using the initialization list; instead of ONLY passing an instance of the same type of object and storing it (player), passing the constructor arguments to waveForm through the constructor initialization
+// passing the two arguements when instantiating waveFormDisplay object
+
 {
     // In your constructor, you should add any child components, and initialise any special settings that your component needs.
 

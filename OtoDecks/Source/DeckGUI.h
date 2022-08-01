@@ -21,7 +21,8 @@ class DeckGUI  : public juce::Component, public juce::Button::Listener, public j
 
 {
 public:
-    DeckGUI(DJAudio* player); // DeckGUI gets DJ audio player via the constructor, and use assignment list
+    DeckGUI(DJAudio* player, juce::AudioFormatManager& formatManagerToUse, juce::AudioThumbnailCache& cacheToUse);
+    // DeckGUI gets DJ audio player via the constructor, and use assignment list
     ~DeckGUI() override;
 
     void paint (juce::Graphics&) override;

@@ -72,10 +72,17 @@ private:
 
     DJAudio player1; // set player1 object of DJAudio class
     DJAudio player2; // set player2 object of DJAudio class
-    DeckGUI deckGUI1{&player1}; // DeckGUI with pointer to DJAudio player1
-    DeckGUI deckGUI2{&player2}; // DeckGUI with pointer to DJAudio player2
+    DeckGUI deckGUI1{&player1, formatManager, thumbCache}; // DeckGUI with pointer to DJAudio player1, as well as AudioFormatManager and AudioThumbnailCache from below
+    DeckGUI deckGUI2{&player2, formatManager, thumbCache}; // DeckGUI with pointer to DJAudio player2, as well as AudioFormatManager and AudioThumbnailCache from below
+
+    // got first layer, got the data in main component, DeckGUI ready to receive the data, and made the connection between the two
 
     juce::MixerAudioSource mixerSource;
+
+    // setting up these in main component, since it can see, access and pass data to both decks; deckGUIs cannot see each other
+    // get data from main component and pass through each layer, until it lands on audio thumbnail
+    juce::AudioFormatManager formatManager;
+    juce::AudioThumbnailCache thumbCache{100}; // cache 100 files
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };
