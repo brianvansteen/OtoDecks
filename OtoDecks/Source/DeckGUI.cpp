@@ -68,23 +68,24 @@ void DeckGUI::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::navajowhite);
     g.setFont (30.0f);
-    g.drawText ("DJ Audio", getLocalBounds(),juce::Justification::centred, true);   // draw some placeholder text
+    // g.drawText ("DJ Audio", getLocalBounds(),juce::Justification::centred, true);   // draw some placeholder text
+    g.drawText("DJ Audio", 10, 10, getWidth(), 10, juce::Justification::centred, true);   // draw some placeholder text
 }
 
 void DeckGUI::resized()
 {
     // This method is where you should set the bounds of any child components that your component contains..
 
-    double rowHeight = getHeight() / 10;
-    double width = (getWidth() - 20) / 2;
+    double rowHeight = getHeight() / 12;
+    double width = (getWidth() - 20);
     auto sliderLeft = 80;
 
-    playButton.setBounds(10, 10, width, rowHeight);
-    stopButton.setBounds(10, 20 + (rowHeight), width, rowHeight);
+    playButton.setBounds(10, 40, width, rowHeight);
+    stopButton.setBounds(10, 50 + (rowHeight), width, rowHeight);
 
-    volSlider.setBounds(sliderLeft, 30 + (rowHeight * 2), width - sliderLeft - 10, rowHeight);
-    speedSlider.setBounds(sliderLeft, 30 + (rowHeight * 3), width - sliderLeft - 10, rowHeight);
-    positionSlider.setBounds(sliderLeft, 30 + (rowHeight * 4), width - sliderLeft - 10, rowHeight);
+    volSlider.setBounds(sliderLeft, 50 + (rowHeight * 2), width - sliderLeft - 10, rowHeight);
+    speedSlider.setBounds(sliderLeft, 50 + (rowHeight * 3), width - sliderLeft - 10, rowHeight);
+    positionSlider.setBounds(sliderLeft, 50 + (rowHeight * 4), width - sliderLeft - 10, rowHeight);
 
     loadButton.setBounds(10, getHeight() - 80, width, rowHeight);
 
@@ -99,8 +100,8 @@ void DeckGUI::buttonClicked(juce::Button* button) // pointer to button; memory a
         juce::Logger::outputDebugString("Play button!");
         // transportSource.setPosition(0);
         // transportSource.start();
-        player->setPosition(0);
-        player->start();
+        player->setPosition(0); // player calls setPosition(0) function from DJaudio to start playing from the beginning
+        player->start(); // player calls start function from DJaudio
 
     }
     else if (button == &stopButton) // button to stop audio file play
@@ -109,7 +110,7 @@ void DeckGUI::buttonClicked(juce::Button* button) // pointer to button; memory a
         DBG("Stop button has been clicked!");
         juce::Logger::outputDebugString("Stop button!");
         // transportSource.stop();
-        player->stop();
+        player->stop(); // player calls stop function from DJaudio
 
     }
     else if (button == &loadButton) // button to load new audio file
@@ -118,7 +119,7 @@ void DeckGUI::buttonClicked(juce::Button* button) // pointer to button; memory a
         fChooser.launchAsync(fileChooserFlags, [this](const juce::FileChooser& chooser)
             {
                 juce::File chosenFile = chooser.getResult();
-                player->loadURL(juce::URL{ chosenFile });
+                player->loadURL(juce::URL{ chosenFile }); // player calls loadURL function from DJaudio
             });
     }
 }
@@ -131,30 +132,32 @@ void DeckGUI::sliderValueChanged(juce::Slider* slider)
         // transportSource.setGain(slider->getValue());
         // dphase = volSlider.getValue() * 0.001;
         // juce::Logger::outputDebugString(slider->getValue());
-        player->setGain(slider->getValue());
+        player->setGain(slider->getValue()); // player calls setGain function from DJaudio
     }
     else if (slider == &speedSlider)
     {
         DBG("Speed slider moved: " << slider->getValue());
         // resampleSource.setResamplingRatio(slider->getValue());
-        player->setSpeed(slider->getValue());
+        player->setSpeed(slider->getValue()); // player calls setSpeed function from DJaudio
     }
     else if (slider == &positionSlider)
     {
         DBG("Position slider: " << slider->getValue());
-        player->setPositionRelative(slider->getValue());
+        player->setPositionRelative(slider->getValue()); // player calls setPositionRelative function from DJaudio
     }
 }
 
 bool DeckGUI::isInterestedInFileDrag(const juce::StringArray& files)
 {
+    DBG("dragging......");
     return true;
 }
 
 void DeckGUI::filesDropped(const juce::StringArray& files, int, int y)
 {
+    DBG("dropping!!");
     if (files.size() == 1)
     {
-        player->loadURL(juce::URL{ juce::File{files[0]} });
+        player->loadURL(juce::URL{ juce::File{files[0]} }); // player calls loadURL function from DJaudio
     }
 }

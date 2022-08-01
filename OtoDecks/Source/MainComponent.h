@@ -71,9 +71,9 @@ private:
     juce::FileChooser fChooser{ "Select a file..." };
 
     DJAudio player1; // set player1 object of DJAudio class
-    DJAudio player2; // 
-    DeckGUI deckGUI1{&player1}; // DeckGUI has to DJAudio to control it
-    DeckGUI deckGUI2{&player2};
+    DJAudio player2; // set player2 object of DJAudio class
+    DeckGUI deckGUI1{&player1}; // DeckGUI with pointer to DJAudio player1
+    DeckGUI deckGUI2{&player2}; // DeckGUI with pointer to DJAudio player2
 
     juce::MixerAudioSource mixerSource;
 

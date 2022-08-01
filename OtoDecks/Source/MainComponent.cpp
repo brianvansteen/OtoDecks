@@ -7,6 +7,9 @@ MainComponent::MainComponent() // four classes: component, audio source, button 
     // Make sure you set the size of the component after
     // you add any child components.
     setSize(800, 600);
+    addAndMakeVisible(deckGUI1);
+    addAndMakeVisible(deckGUI2);
+
 
     // Some platforms require permissions to open input channels so request that here
     if (juce::RuntimePermissions::isRequired(juce::RuntimePermissions::recordAudio)
@@ -20,9 +23,6 @@ MainComponent::MainComponent() // four classes: component, audio source, button 
         // Specify the number of input and output channels that we want to open
         setAudioChannels(2, 2);
     }
-
-    addAndMakeVisible(deckGUI1);
-    addAndMakeVisible(deckGUI2);
 
     //addAndMakeVisible(playButton);
     //addAndMakeVisible(stopButton);
@@ -72,8 +72,8 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
 
     // For more details, see the help for AudioProcessor::prepareToPlay()
 
-    player1.prepareToPlay(samplesPerBlockExpected, sampleRate); // DJAudio now responsible for filling up the block (instead of filling it up from the transportSource
-    player2.prepareToPlay(samplesPerBlockExpected, sampleRate); // DJAudio now responsible for filling up the block (instead of filling it up from the transportSource
+    // player1.prepareToPlay(samplesPerBlockExpected, sampleRate); // DJAudio now responsible for filling up the block (instead of filling it up from the transportSource
+    // player2.prepareToPlay(samplesPerBlockExpected, sampleRate); // DJAudio now responsible for filling up the block (instead of filling it up from the transportSource
     
     mixerSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
     mixerSource.addInputSource(&player1, false);
@@ -137,10 +137,11 @@ void MainComponent::releaseResources()
 
     // For more details, see the help for AudioProcessor::releaseResources()
 
+    mixerSource.removeAllInputs();
+    mixerSource.releaseResources();
     player1.releaseResources();
     player2.releaseResources();
-    mixerSource.releaseResources();
-
+    
     //transportSource.releaseResources();
 }
 
@@ -167,8 +168,8 @@ void MainComponent::resized()
 
     DBG("MainComponent::resized");
     
-    deckGUI1.setBounds(0, 0, getWidth() / 2, getHeight());
-    deckGUI2.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight());
+    deckGUI1.setBounds(0, 0, getWidth() / 2, getHeight()); // getWidth() / 2 to set two decks
+    deckGUI2.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight()); // getWidth() / 2 to set two decks
 
     //double rowHeight = getHeight() / 10;
     //double width = (getWidth() - 20) / 2;

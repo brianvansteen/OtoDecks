@@ -35,7 +35,7 @@ public:
 
 private:
 
-    juce::TextButton playButton{ "Play Now!" };
+    juce::TextButton playButton{ "**** PLAY! ****" };
     juce::TextButton stopButton{ "**** STOP ****" };
     juce::TextButton loadButton{ "LOAD AUDIO" };
 
@@ -48,7 +48,7 @@ private:
 
     juce::FileChooser fChooser{ "Select a file..." };
 
-    DJAudio* player; // deck GUI is unaware of DJAudio player; when receive events from buttons, how to send events on to DJAudio player; so need reference with pointer
+    DJAudio* player; // DeckGUI is unaware of DJAudio player; when receive events from buttons, how to send events on to DJAudio player; so need reference with pointer
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeckGUI)
 };
