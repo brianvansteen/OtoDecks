@@ -11,7 +11,7 @@
 #include "DJaudio.h"
 
 
-DJAudio::DJAudio()
+DJAudio::DJAudio(juce::AudioFormatManager& _formatManager) : formatManager(_formatManager)
 {
 
 }
@@ -23,7 +23,8 @@ DJAudio::~DJAudio()
 
 void DJAudio::prepareToPlay(int samplesPerBlockExpected, double sampleRate) // pure virtual function
 {
-    formatManager.registerBasicFormats(); // ensures audio system knows about the basic audio formats
+    // registerBasicFormats now done in MainComponent.cpp
+    // formatManager.registerBasicFormats(); // ensures audio system knows about the basic audio formats
     transportSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
     resampleSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
 }

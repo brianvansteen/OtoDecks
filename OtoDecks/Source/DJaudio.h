@@ -15,7 +15,7 @@ class DJAudio : public juce::AudioSource // DJAudio is inheriting from AudioSour
 {
 public:
 
-    DJAudio();
+    DJAudio(juce::AudioFormatManager& _formatManager);
     ~DJAudio();
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override; // pure virtual function
     void getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill) override; // pure virtual function
@@ -33,7 +33,7 @@ public:
 private:
 
     // AudioFormatManager: responsible for knowing about different audio formats (i.e. decompression, channels), and how to play the file, sends to AudioFormatReader interface
-    juce::AudioFormatManager formatManager; // first layer of onion to work with different audio file formats
+    juce::AudioFormatManager& formatManager; // first layer of onion to work with different audio file formats
 
     std::unique_ptr<juce::AudioFormatReaderSource> readerSource; // to create on the fly, to read a file once the file is identified; need a 'smart pointer'
 

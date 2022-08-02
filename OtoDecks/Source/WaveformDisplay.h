@@ -15,10 +15,10 @@
 //==============================================================================
 /*
 */
-class WaveformDisplay  : public juce::Component, public juce::ChangeListener // add ChangeBroadcaster listener to inheritance
+class WaveformDisplay  : public juce::Component, public juce::ChangeListener // add ChangeBroadcaster listener to inheritance definition
 {
 public:
-    WaveformDisplay(juce::AudioFormatManager& formatManagerToUse, juce::AudioThumbnailCache& cacheToUse);
+    WaveformDisplay(juce::AudioFormatManager& formatManagerToUse, juce::AudioThumbnailCache& cacheToUse); // constructor with AudioFormatManager and the thumbnail cache
     ~WaveformDisplay() override;
 
     void paint (juce::Graphics&) override;

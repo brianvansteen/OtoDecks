@@ -128,7 +128,7 @@ void DeckGUI::buttonClicked(juce::Button* button) // pointer to button; memory a
             {
                 juce::File chosenFile = chooser.getResult();
                 player->loadURL(juce::URL{ chosenFile }); // player calls loadURL function from DJaudio
-                waveFormDisplay.loadURL(juce::URL{ chosenFile }); // waveFormDisplay from initialization list of DeckGUI
+                waveFormDisplay.loadURL(juce::URL{ chosenFile }); // waveFormDisplay from private initialization list of DeckGUI.h (WaveformDisplay waveFormDisplay;)
             });
     }
 }

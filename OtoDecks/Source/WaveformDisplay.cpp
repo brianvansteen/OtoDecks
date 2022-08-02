@@ -12,11 +12,11 @@
 #include "WaveformDisplay.h"
 
 //==============================================================================
+// constructor
 WaveformDisplay::WaveformDisplay(juce::AudioFormatManager& formatManagerToUse, juce::AudioThumbnailCache& cacheToUse) : audioThumb(1000, formatManagerToUse, cacheToUse), fileLoaded(false), position(10)
 
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
+    // In your constructor, you should add any child components, and initialise any special settings that your component needs.
 
     audioThumb.addChangeListener(this); // register with audioThumbnail for changes
 }
@@ -49,7 +49,7 @@ void WaveformDisplay::paint (juce::Graphics& g)
     {
         // g.setFont (30.0f);
         g.setFont(juce::Font(20.0f, juce::Font::italic));
-        g.drawText("file is loading....", getLocalBounds(), juce::Justification::centred, true);   // draw some placeholder text
+        g.drawText("audio waveform to come....", getLocalBounds(), juce::Justification::centred, true);   // draw some placeholder text
     }
 }
 
