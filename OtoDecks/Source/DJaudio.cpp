@@ -104,3 +104,8 @@ void DJAudio::stop()
 {
     transportSource.stop();
 }
+
+double DJAudio::getPositionRelative()
+{
+    return transportSource.getCurrentPosition() / transportSource.getLengthInSeconds();
+}

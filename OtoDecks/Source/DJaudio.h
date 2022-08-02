@@ -30,6 +30,8 @@ public:
     void start(); // start playback
     void stop(); // stop playback
 
+    double getPositionRelative(); // get the relative position of the playhead; between 0 and 1
+
 private:
 
     // AudioFormatManager: responsible for knowing about different audio formats (i.e. decompression, channels), and how to play the file, sends to AudioFormatReader interface

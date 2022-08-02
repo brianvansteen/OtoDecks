@@ -28,6 +28,8 @@ public:
 
     void loadURL(juce::URL audioURL);
 
+    void setPositionRelative(double pos); // set the relative position of the playhead
+
 private:
 
     juce::AudioThumbnail audioThumb; // AudioThumbnail constructor (to draw waveform share of audio) has three arguments, but do not have access to incoming data coming into my constructor (WaveformDisplay

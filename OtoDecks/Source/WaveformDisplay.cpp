@@ -13,7 +13,7 @@
 
 //==============================================================================
 // constructor
-WaveformDisplay::WaveformDisplay(juce::AudioFormatManager& formatManagerToUse, juce::AudioThumbnailCache& cacheToUse) : audioThumb(1000, formatManagerToUse, cacheToUse), fileLoaded(false), position(10)
+WaveformDisplay::WaveformDisplay(juce::AudioFormatManager& formatManagerToUse, juce::AudioThumbnailCache& cacheToUse) : audioThumb(1000, formatManagerToUse, cacheToUse), fileLoaded(false), position(0)
 
 {
     // In your constructor, you should add any child components, and initialise any special settings that your component needs.
@@ -81,3 +81,12 @@ void WaveformDisplay::changeListenerCallback(juce::ChangeBroadcaster* source)
     DBG("changeBroadcaster!");
     repaint();
 }
+
+//void WaveformDisplay::setPositionRelative(double pos)
+//{
+//    if (pos != position)
+//    {
+//        position = pos;
+//        repaint();
+//    }
+//}

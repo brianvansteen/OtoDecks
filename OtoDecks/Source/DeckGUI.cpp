@@ -51,10 +51,14 @@ DeckGUI::DeckGUI(DJAudio* _player, juce::AudioFormatManager& formatManagerToUse,
     addAndMakeVisible(positionLabel);
     positionLabel.setText("Position", juce::dontSendNotification);
     positionLabel.attachToComponent(&positionSlider, true);
+
+    //startTimer(500);
+
 }
 
 DeckGUI::~DeckGUI()
 {
+    //stopTimer();
 }
 
 void DeckGUI::paint (juce::Graphics& g)
@@ -171,3 +175,9 @@ void DeckGUI::filesDropped(const juce::StringArray& files, int, int y)
         waveFormDisplay.loadURL(juce::URL{ fChooser.getResult() });
     }
 }
+
+//void DeckGUI::timerCallback()
+//{
+//    DBG("timer call back!");
+//    waveFormDisplay.setPositionRelative(player->getPositionRelative());
+//}
