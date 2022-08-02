@@ -15,7 +15,7 @@
 //==============================================================================
 /*
 */
-class WaveformDisplay  : public juce::Component
+class WaveformDisplay  : public juce::Component, public juce::ChangeListener // add ChangeBroadcaster listener to inheritance
 {
 public:
     WaveformDisplay(juce::AudioFormatManager& formatManagerToUse, juce::AudioThumbnailCache& cacheToUse);
@@ -23,6 +23,8 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
+
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     void loadURL(juce::URL audioURL);
 

@@ -18,6 +18,7 @@ WaveformDisplay::WaveformDisplay(juce::AudioFormatManager& formatManagerToUse, j
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
 
+    audioThumb.addChangeListener(this); // register with audioThumbnail for changes
 }
 
 WaveformDisplay::~WaveformDisplay()
@@ -26,11 +27,9 @@ WaveformDisplay::~WaveformDisplay()
 
 void WaveformDisplay::paint (juce::Graphics& g)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
+    /* This demo code just fills the component's background and draws some placeholder text to get you started. Only gets called when needed; not continuously
 
-       You should replace everything in this method with your own
-       drawing code..
+       You should replace everything in this method with your own drawing code..
     */
 
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
@@ -66,6 +65,7 @@ void WaveformDisplay::loadURL(juce::URL audioURL) // DeckGUI needs to tell Wavef
     audioThumb.clear();
     fileLoaded = audioThumb.setSource(new juce::URLInputSource(audioURL)); // getting URL; unpack URL, turn into new input source calling URLInputSource, then setSource onto audioThumb
     // AudioThumbnail::setSource is a boolean; specifies the file or stream that contains the audio file; returns True is valid audio source
+    // need to call paint to draw the waveform after the file is loaded
     if (fileLoaded)
     {
         DBG("Waveform loaded!");
@@ -74,4 +74,10 @@ void WaveformDisplay::loadURL(juce::URL audioURL) // DeckGUI needs to tell Wavef
     {
         DBG("WFD: not loaded....");
     }
+}
+
+void WaveformDisplay::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    DBG("changeBroadcaster!");
+    repaint();
 }
