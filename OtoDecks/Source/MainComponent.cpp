@@ -7,9 +7,6 @@ MainComponent::MainComponent() // four classes: component, audio source, button 
     // Make sure you set the size of the component after
     // you add any child components.
     setSize(800, 600);
-    addAndMakeVisible(deckGUI1);
-    addAndMakeVisible(deckGUI2);
-
 
     // Some platforms require permissions to open input channels so request that here
     if (juce::RuntimePermissions::isRequired(juce::RuntimePermissions::recordAudio)
@@ -23,6 +20,11 @@ MainComponent::MainComponent() // four classes: component, audio source, button 
         // Specify the number of input and output channels that we want to open
         setAudioChannels(2, 2);
     }
+
+    addAndMakeVisible(deckGUI1);
+    addAndMakeVisible(deckGUI2);
+
+    formatManager.registerBasicFormats();
 
     //addAndMakeVisible(playButton);
     //addAndMakeVisible(stopButton);

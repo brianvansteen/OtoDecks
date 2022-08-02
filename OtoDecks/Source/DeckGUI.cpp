@@ -167,5 +167,6 @@ void DeckGUI::filesDropped(const juce::StringArray& files, int, int y)
     if (files.size() == 1)
     {
         player->loadURL(juce::URL{ juce::File{files[0]} }); // player calls loadURL function from DJaudio
+        waveFormDisplay.loadURL(juce::URL{ fChooser.getResult() });
     }
 }

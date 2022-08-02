@@ -39,9 +39,16 @@ void WaveformDisplay::paint (juce::Graphics& g)
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 
     g.setColour (juce::Colours::orangered);
-    // g.setFont (30.0f);
-    g.setFont(juce::Font(30.0f, juce::Font::italic));
-    g.drawText ("file is loading....", getLocalBounds(), juce::Justification::centred, true);   // draw some placeholder text
+    if (fileLoaded)
+    {
+        audioThumb.drawChannel(g, getLocalBounds(), 0, audioThumb.getTotalLength(), 0, 1.0);
+    }
+    else
+    {
+        // g.setFont (30.0f);
+        g.setFont(juce::Font(30.0f, juce::Font::italic));
+        g.drawText("file is loading....", getLocalBounds(), juce::Justification::centred, true);   // draw some placeholder text
+    }
 }
 
 void WaveformDisplay::resized()
@@ -49,4 +56,18 @@ void WaveformDisplay::resized()
     // This method is where you should set the bounds of any child
     // components that your component contains..
 
+}
+
+void WaveformDisplay::loadURL(juce::URL audioURL)
+{
+    audioThumb.clear();
+    fileLoaded = audioThumb.setSource(new juce::URLInputSource(audioURL));
+    if (fileLoaded)
+    {
+        DBG("Waveform loaded!");
+    }
+    else
+    {
+        DBG("WFD: not loaded....");
+    }
 }

@@ -24,10 +24,14 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
 
+    void loadURL(juce::URL audioURL);
+
 private:
 
     juce::AudioThumbnail audioThumb; // AudioThumbnail constructor has three arguments, but do not have access to incoming data coming into my constructor (WaveformDisplay
     // so need to add it to initialization list
+
+    bool fileLoaded;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDisplay)
 };
