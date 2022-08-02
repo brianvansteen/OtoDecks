@@ -32,6 +32,7 @@ private:
     // so need to add it to initialization list
 
     bool fileLoaded;
+    double position;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDisplay)
 };
