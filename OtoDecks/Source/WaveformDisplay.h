@@ -28,8 +28,9 @@ public:
 
 private:
 
-    juce::AudioThumbnail audioThumb; // AudioThumbnail constructor has three arguments, but do not have access to incoming data coming into my constructor (WaveformDisplay
-    // so need to add it to initialization list
+    juce::AudioThumbnail audioThumb; // AudioThumbnail constructor (to draw waveform share of audio) has three arguments, but do not have access to incoming data coming into my constructor (WaveformDisplay
+    // so need to add it to initialization list in the constructor file >> audioThumb(1000, formatManagerToUse, cacheToUse)
+    // only want 1 instance of AudioFormatManager and AudioThumbnailCache since the cache is shared between any audio thumbnails; both will be part of Main Component where data is stored
 
     bool fileLoaded;
     double position;

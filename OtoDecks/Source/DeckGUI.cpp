@@ -93,7 +93,7 @@ void DeckGUI::resized()
     speedSlider.setBounds(sliderLeft, 50 + (rowHeight * 3), width - sliderLeft - 10, rowHeight);
     positionSlider.setBounds(sliderLeft, 50 + (rowHeight * 4), width - sliderLeft - 10, rowHeight);
 
-    waveFormDisplay.setBounds(10, 60 + (rowHeight * 5), width, rowHeight * 2);
+    waveFormDisplay.setBounds(10, 60 + (rowHeight * 5), width - 10, rowHeight * 2);
 
     loadButton.setBounds(10, getHeight() - 80, width, rowHeight);
 
@@ -128,6 +128,7 @@ void DeckGUI::buttonClicked(juce::Button* button) // pointer to button; memory a
             {
                 juce::File chosenFile = chooser.getResult();
                 player->loadURL(juce::URL{ chosenFile }); // player calls loadURL function from DJaudio
+                waveFormDisplay.loadURL(juce::URL{ chosenFile }); // waveFormDisplay from initialization list of DeckGUI
             });
     }
 }

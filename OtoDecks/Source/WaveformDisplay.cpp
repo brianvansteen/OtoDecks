@@ -12,7 +12,7 @@
 #include "WaveformDisplay.h"
 
 //==============================================================================
-WaveformDisplay::WaveformDisplay(juce::AudioFormatManager& formatManagerToUse, juce::AudioThumbnailCache& cacheToUse) : audioThumb(1000, formatManagerToUse, cacheToUse), fileLoaded(false)
+WaveformDisplay::WaveformDisplay(juce::AudioFormatManager& formatManagerToUse, juce::AudioThumbnailCache& cacheToUse) : audioThumb(1000, formatManagerToUse, cacheToUse), fileLoaded(false), position(10)
 
 {
     // In your constructor, you should add any child components, and
@@ -41,14 +41,15 @@ void WaveformDisplay::paint (juce::Graphics& g)
     g.setColour (juce::Colours::orangered);
     if (fileLoaded)
     {
-        audioThumb.drawChannel(g, getLocalBounds(), 0, audioThumb.getTotalLength(), 0, 1.0f);
+        audioThumb.drawChannel(g, getLocalBounds(), 0, audioThumb.getTotalLength(), 0, 1.5f); // g from paint function to draw on canvas within bounds of waveform compononent (from DeckGUI::resized function)
+        // from 0 to end of audio file
         g.setColour(juce::Colours::lightgreen);
         g.drawRect(position * getWidth(), 0, getWidth() / 20, getHeight());
     }
     else
     {
         // g.setFont (30.0f);
-        g.setFont(juce::Font(30.0f, juce::Font::italic));
+        g.setFont(juce::Font(20.0f, juce::Font::italic));
         g.drawText("file is loading....", getLocalBounds(), juce::Justification::centred, true);   // draw some placeholder text
     }
 }
@@ -60,10 +61,11 @@ void WaveformDisplay::resized()
 
 }
 
-void WaveformDisplay::loadURL(juce::URL audioURL)
+void WaveformDisplay::loadURL(juce::URL audioURL) // DeckGUI needs to tell WaveformDisplay when file is ready, from loadButton
 {
     audioThumb.clear();
-    fileLoaded = audioThumb.setSource(new juce::URLInputSource(audioURL));
+    fileLoaded = audioThumb.setSource(new juce::URLInputSource(audioURL)); // getting URL; unpack URL, turn into new input source calling URLInputSource, then setSource onto audioThumb
+    // AudioThumbnail::setSource is a boolean; specifies the file or stream that contains the audio file; returns True is valid audio source
     if (fileLoaded)
     {
         DBG("Waveform loaded!");

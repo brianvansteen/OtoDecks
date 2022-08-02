@@ -24,7 +24,7 @@ MainComponent::MainComponent() // four classes: component, audio source, button 
     addAndMakeVisible(deckGUI1);
     addAndMakeVisible(deckGUI2);
 
-    formatManager.registerBasicFormats();
+    formatManager.registerBasicFormats(); // for the AudioFormatManager that is now in the WaveformDisplay
 
     //addAndMakeVisible(playButton);
     //addAndMakeVisible(stopButton);
