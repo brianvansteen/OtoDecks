@@ -18,6 +18,10 @@ PlaylistComponent::PlaylistComponent()
 
     trackTitles.push_back("Black Dog");
     trackTitles.push_back("Lemon Song");
+    trackTitles.push_back("Dazed and Confused");
+    trackTitles.push_back("Out on the Tiles");
+    trackTitles.push_back("Wearing and Tearing");
+    trackTitles.push_back("Boogie with Stu");
 
     tableComponent.getHeader().addColumn("Title", 1, 200);
     tableComponent.getHeader().addColumn("Artist", 2, 200);
@@ -60,12 +64,22 @@ int PlaylistComponent::getNumRows()
     return trackTitles.size();
 }
 
-void PlaylistComponent::paintRowBackground(juce::Graphics&, int rowNumber, int width, int height, bool rowIsSelected)
+void PlaylistComponent::paintRowBackground(juce::Graphics& g, int rowNumber, int width, int height, bool rowIsSelected)
 {
-
+    if (rowIsSelected)
+    {
+        g.fillAll(juce::Colours::orange);
+    }
+    else
+    {
+        g.fillAll(juce::Colours::darkolivegreen);
+    }
 }
 
-void PlaylistComponent::paintCell(juce::Graphics&, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
+void PlaylistComponent::paintCell(juce::Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-
+    if (rowNumber < getNumRows())
+    {
+        g.drawText(trackTitles[rowNumber], 2, 0, width - 4, height, juce::Justification::centredLeft, true);
+    }
 }
