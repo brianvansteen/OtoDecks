@@ -43,7 +43,8 @@ void WaveformDisplay::paint (juce::Graphics& g)
         audioThumb.drawChannel(g, getLocalBounds(), 0, audioThumb.getTotalLength(), 0, 1.5f); // g from paint function to draw on canvas within bounds of waveform compononent (from DeckGUI::resized function)
         // from 0 to end of audio file
         g.setColour(juce::Colours::lightgreen);
-        g.drawRect(position * getWidth(), 0, getWidth() / 20, getHeight());
+        g.drawRect(position * getWidth(), 0, 5, getHeight());
+        g.fillRect(position * getWidth(), 0, 5, getHeight());
     }
     else
     {
@@ -82,11 +83,11 @@ void WaveformDisplay::changeListenerCallback(juce::ChangeBroadcaster* source)
     repaint();
 }
 
-//void WaveformDisplay::setPositionRelative(double pos)
-//{
-//    if (pos != position)
-//    {
-//        position = pos;
-//        repaint();
-//    }
-//}
+void WaveformDisplay::setPositionRelative(double pos)
+{
+    if (pos != position && pos > 0)
+    {
+        position = pos;
+        repaint();
+    }
+}

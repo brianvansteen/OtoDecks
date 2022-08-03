@@ -17,7 +17,7 @@
 //==============================================================================
 /*
 */
-class DeckGUI  : public juce::Component, public juce::Button::Listener, public juce::Slider::Listener, public juce::FileDragAndDropTarget //, public juce::Timer
+class DeckGUI  : public juce::Component, public juce::Button::Listener, public juce::Slider::Listener, public juce::FileDragAndDropTarget, public juce::Timer
 
 {
 public:
@@ -35,7 +35,7 @@ public:
     bool isInterestedInFileDrag (const juce::StringArray& files) override;
     void filesDropped (const juce::StringArray& files, int, int y) override;
 
-    // void timerCallback() override;
+    void timerCallback() override;
 
 private:
 
