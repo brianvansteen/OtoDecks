@@ -3,6 +3,7 @@
 #include <JuceHeader.h>
 #include "DJaudio.h"
 #include "DeckGUI.h"
+#include "PlaylistComponent.h"
 
 //==============================================================================
 /*
@@ -84,6 +85,8 @@ private:
     // got first layer, got the data in main component, DeckGUI ready to receive the data, and made the connection between the two
 
     juce::MixerAudioSource mixerSource;
+
+    PlaylistComponent playlistComponent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

@@ -88,18 +88,18 @@ void DeckGUI::resized()
 
     double rowHeight = getHeight() / 12;
     double width = (getWidth() - 20);
-    auto sliderLeft = 80;
+    auto sliderLeft = 60;
 
     playButton.setBounds(10, 40, width, rowHeight);
     stopButton.setBounds(10, 50 + (rowHeight), width, rowHeight);
 
-    volSlider.setBounds(sliderLeft, 50 + (rowHeight * 2), width - sliderLeft - 10, rowHeight);
-    speedSlider.setBounds(sliderLeft, 50 + (rowHeight * 3), width - sliderLeft - 10, rowHeight);
-    positionSlider.setBounds(sliderLeft, 50 + (rowHeight * 4), width - sliderLeft - 10, rowHeight);
+    volSlider.setBounds(sliderLeft, 60 + (rowHeight * 2), width - sliderLeft, rowHeight);
+    speedSlider.setBounds(sliderLeft, 60 + (rowHeight * 3), width - sliderLeft, rowHeight);
+    positionSlider.setBounds(sliderLeft, 60 + (rowHeight * 4), width - sliderLeft, rowHeight);
 
-    waveFormDisplay.setBounds(10, 60 + (rowHeight * 5), width - 10, rowHeight * 2);
+    waveFormDisplay.setBounds(5, 65 + (rowHeight * 5), width + 10, rowHeight * 3);
 
-    loadButton.setBounds(10, getHeight() - 80, width, rowHeight);
+    loadButton.setBounds(10, getHeight() - 30, width, rowHeight);
 
 }
 

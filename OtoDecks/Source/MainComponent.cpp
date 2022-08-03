@@ -24,6 +24,8 @@ MainComponent::MainComponent() // four classes: component, audio source, button 
     addAndMakeVisible(deckGUI1);
     addAndMakeVisible(deckGUI2);
 
+    addAndMakeVisible(playlistComponent);
+
     formatManager.registerBasicFormats(); // for the AudioFormatManager that is now in the WaveformDisplay
 
     //addAndMakeVisible(playButton);
@@ -170,8 +172,9 @@ void MainComponent::resized()
 
     DBG("MainComponent::resized");
     
-    deckGUI1.setBounds(0, 0, getWidth() / 2, getHeight()); // getWidth() / 2 to set two decks
-    deckGUI2.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight()); // getWidth() / 2 to set two decks
+    deckGUI1.setBounds(0, 0, getWidth() / 2, getHeight() / 2); // getWidth() / 2 to set two decks
+    deckGUI2.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight() / 2); // getWidth() / 2 to set two decks
+    playlistComponent.setBounds(5, getHeight() / 2, getWidth() - 10, getHeight() / 2 - 10);
 
     //double rowHeight = getHeight() / 10;
     //double width = (getWidth() - 20) / 2;
