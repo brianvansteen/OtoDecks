@@ -23,8 +23,9 @@ PlaylistComponent::PlaylistComponent()
     trackTitles.push_back("Wearing and Tearing");
     trackTitles.push_back("Boogie with Stu");
 
-    tableComponent.getHeader().addColumn("Title", 1, 200);
-    tableComponent.getHeader().addColumn("Artist", 2, 200);
+    tableComponent.getHeader().addColumn("Title", 1, 180);
+    tableComponent.getHeader().addColumn("Artist", 2, 140);
+    tableComponent.getHeader().addColumn("", 3, 80);
     tableComponent.setModel(this);
 
     addAndMakeVisible(tableComponent);
@@ -32,6 +33,7 @@ PlaylistComponent::PlaylistComponent()
 
 PlaylistComponent::~PlaylistComponent()
 {
+    tableComponent.setModel(nullptr);
 }
 
 void PlaylistComponent::paint (juce::Graphics& g)
@@ -82,4 +84,30 @@ void PlaylistComponent::paintCell(juce::Graphics& g, int rowNumber, int columnId
     {
         g.drawText(trackTitles[rowNumber], 2, 0, width - 4, height, juce::Justification::centredLeft, true);
     }
+}
+
+PlaylistComponent::Component* PlaylistComponent::refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, PlaylistComponent::Component *existingComponentToUpdate)
+{
+    if (columnId == 3)
+    {
+        if (existingComponentToUpdate == nullptr)
+        {
+            juce::TextButton* btn = new juce::TextButton{ "*** Play ***" };
+
+            juce::String id{ std::to_string(rowNumber) };
+            btn->setComponentID(id);
+
+            btn->addListener(this);
+            existingComponentToUpdate = btn;
+        }
+    }
+    return existingComponentToUpdate;
+}
+
+void PlaylistComponent::buttonClicked(juce::Button* button)
+{
+    int id = std::stoi(button->getComponentID().toStdString());
+
+    DBG("Button clicked!" << button->getComponentID());
+    DBG(trackTitles[id]);
 }
