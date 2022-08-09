@@ -32,6 +32,13 @@ public:
 
     double getPositionRelative(); // get the relative position of the playhead; between 0 and 1
 
+    // double getLengthInSeconds(); // from transport source
+
+    void setRoomSize(float size); // for reverb levels
+    void setDamping(float dampingAmt); // for reverb levels
+    void setWetLevel(float wetLevel); // for reverb levels
+    void setDryLevel(float dryLevel); // for reverb levels
+
 private:
 
     // AudioFormatManager: responsible for knowing about different audio formats (i.e. decompression, channels), and how to play the file, sends to AudioFormatReader interface
@@ -42,4 +49,7 @@ private:
     juce::AudioTransportSource transportSource; // to control playback of audio, adjust the volume; NOT speed
 
     juce::ResamplingAudioSource resampleSource{ &transportSource, false, 2 }; // wrapper to transport source to control the speed
+
+    juce::ReverbAudioSource reverbSource{ &resampleSource, false };
+    juce::Reverb::Parameters reverbParameters;
 };
