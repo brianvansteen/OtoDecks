@@ -36,6 +36,7 @@ public:
     void filesDropped (const juce::StringArray& files, int, int y) override;
 
     void timerCallback() override;
+    void loadFile(juce::URL audioURL);
 
 private:
 

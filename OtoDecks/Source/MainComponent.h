@@ -79,6 +79,7 @@ private:
 
     DJAudio player1{formatManager}; // set player1 object of DJAudio class
     DJAudio player2{formatManager}; // set player2 object of DJAudio class
+    DJAudio playerForParsingMetaData{ formatManager };
     DeckGUI deckGUI1{&player1, formatManager, thumbCache}; // DeckGUI with pointer to DJAudio player1, as well as AudioFormatManager and AudioThumbnailCache from below
     DeckGUI deckGUI2{&player2, formatManager, thumbCache}; // DeckGUI with pointer to DJAudio player2, as well as AudioFormatManager and AudioThumbnailCache from below
 
@@ -86,7 +87,7 @@ private:
 
     juce::MixerAudioSource mixerSource;
 
-    PlaylistComponent playlistComponent;
+    PlaylistComponent playlistComponent { &deckGUI1, &deckGUI2, &playerForParsingMetaData };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

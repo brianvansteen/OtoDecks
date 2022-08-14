@@ -116,6 +116,11 @@ double DJAudio::getPositionRelative()
     return transportSource.getCurrentPosition() / transportSource.getLengthInSeconds();
 }
 
+double DJAudio::getLengthInSeconds()
+{
+    return transportSource.getLengthInSeconds();
+}
+
 void DJAudio::setRoomSize(float size)
 {
     DBG("setRoomSize called");

@@ -98,7 +98,7 @@ void PlaylistComponent::resized()
 
 int PlaylistComponent::getNumRows()
 {
-    return trackTitles.size();
+    return tracks.size();
 }
 
 void PlaylistComponent::paintRowBackground(juce::Graphics& g, int rowNumber, int width, int height, bool rowIsSelected)
@@ -117,7 +117,7 @@ void PlaylistComponent::paintCell(juce::Graphics& g, int rowNumber, int columnId
 {
     if (rowNumber < getNumRows())
     {
-        g.drawText(trackTitles[rowNumber], 2, 0, width - 4, height, juce::Justification::centredLeft, true);
+        g.drawText(tracks[rowNumber].length, 2, 0, width - 4, height, juce::Justification::centredLeft, true);
     }
 }
 

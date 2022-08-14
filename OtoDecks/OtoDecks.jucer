@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="rcTZk2" name="OtoDecks" projectType="guiapp" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              defines="JUCE_MODAL_LOOPS_PERMITTED=1">
   <MAINGROUP id="gIAIyc" name="OtoDecks">
     <GROUP id="{4F4F35DF-C5A0-B87B-F061-116AC1E31412}" name="Source">
+      <FILE id="X2r3hI" name="Track.cpp" compile="1" resource="0" file="Source/Track.cpp"/>
+      <FILE id="pb42Vq" name="Track.h" compile="0" resource="0" file="Source/Track.h"/>
       <FILE id="OOMw3m" name="Graphing.cpp" compile="1" resource="0" file="Source/Graphing.cpp"/>
       <FILE id="lpTzuZ" name="Graphing.h" compile="0" resource="0" file="Source/Graphing.h"/>
       <FILE id="K2oJy5" name="PlaylistComponent.cpp" compile="1" resource="0"

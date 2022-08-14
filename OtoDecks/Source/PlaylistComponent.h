@@ -15,6 +15,7 @@
 #include <fstream>
 #include "DeckGUI.h"
 #include "DJAudio.h"
+#include "Track.h"
 
 //==============================================================================
 /*
@@ -41,7 +42,7 @@ public:
 private:
     
     juce::TableListBox tableComponent;
-    std::vector<std::string> trackTitles;
+    std::vector<Track> tracks;
 
     juce::TextButton importButton{ "IMPORT TRACKS" };
     juce::TextEditor searchField;

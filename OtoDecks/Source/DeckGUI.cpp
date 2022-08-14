@@ -125,15 +125,24 @@ void DeckGUI::buttonClicked(juce::Button* button) // pointer to button; memory a
         player->stop(); // player calls stop function from DJaudio
 
     }
+    //else if (button == &loadButton) // button to load new audio file
+    //{
+    //    auto fileChooserFlags = juce::FileBrowserComponent::canSelectFiles;
+    //    fChooser.launchAsync(fileChooserFlags, [this](const juce::FileChooser& chooser)
+    //        {
+    //            juce::File chosenFile = chooser.getResult();
+    //            player->loadURL(juce::URL{ chosenFile }); // player calls loadURL function from DJaudio
+    //            waveFormDisplay.loadURL(juce::URL{ chosenFile }); // waveFormDisplay from private initialization list of DeckGUI.h (WaveformDisplay waveFormDisplay;)
+    //        });
+    //}
     else if (button == &loadButton) // button to load new audio file
     {
-        auto fileChooserFlags = juce::FileBrowserComponent::canSelectFiles;
-        fChooser.launchAsync(fileChooserFlags, [this](const juce::FileChooser& chooser)
-            {
-                juce::File chosenFile = chooser.getResult();
-                player->loadURL(juce::URL{ chosenFile }); // player calls loadURL function from DJaudio
-                waveFormDisplay.loadURL(juce::URL{ chosenFile }); // waveFormDisplay from private initialization list of DeckGUI.h (WaveformDisplay waveFormDisplay;)
-            });
+        DBG("Load button was clicked ");
+        juce::FileChooser chooser{ "Select a file" };
+        if (chooser.browseForFileToOpen())
+        {
+            loadFile(juce::URL{ chooser.getResult() });
+        }
     }
 }
 
@@ -174,6 +183,13 @@ void DeckGUI::filesDropped(const juce::StringArray& files, int, int y)
         player->loadURL(juce::URL{ juce::File{files[0]} }); // player calls loadURL function from DJaudio
         waveFormDisplay.loadURL(juce::URL{ fChooser.getResult() });
     }
+}
+
+void DeckGUI::loadFile(juce::URL audioURL)
+{
+    DBG("DeckGUI::loadFile called");
+    player->loadURL(audioURL);
+    waveFormDisplay.loadURL(audioURL);
 }
 
 void DeckGUI::timerCallback()

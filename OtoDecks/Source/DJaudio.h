@@ -32,7 +32,7 @@ public:
 
     double getPositionRelative(); // get the relative position of the playhead; between 0 and 1
 
-    // double getLengthInSeconds(); // from transport source
+    double getLengthInSeconds(); // from transport source
 
     void setRoomSize(float size); // for reverb levels
     void setDamping(float dampingAmt); // for reverb levels
