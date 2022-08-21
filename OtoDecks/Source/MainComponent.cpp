@@ -161,7 +161,7 @@ void MainComponent::paint (juce::Graphics& g)
     g.setFont(30.0f);
     g.drawText("Hello from Canada!", getLocalBounds(),
     juce::Justification::centred, true);
-    DBG("Paint!");
+    // DBG("Paint!");
 }
 
 void MainComponent::resized()

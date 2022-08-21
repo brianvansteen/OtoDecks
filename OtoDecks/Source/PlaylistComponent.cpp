@@ -42,11 +42,11 @@ PlaylistComponent::PlaylistComponent(DeckGUI* _deckGUI1, DeckGUI* _deckGUI2, DJA
     addToPlayer1Button.addListener(this);
     addToPlayer2Button.addListener(this);
 
-    searchField.setTextToShowWhenEmpty("Search Library (enter to submit)", juce::Colours::orangered);
+    searchField.setTextToShowWhenEmpty("Search titles (enter to submit)", juce::Colours::orangered);
     searchField.onReturnKey = [this] { searchLibrary(searchField.getText()); };
 
     // setup table and load library from file
-    library.getHeader().addColumn("Tracks", 1, 1);
+    library.getHeader().addColumn("Title", 1, 1);
     library.getHeader().addColumn("Length", 2, 1);
     library.getHeader().addColumn("Artist", 3, 1);
     library.getHeader().addColumn("Album", 4, 1);
@@ -259,7 +259,7 @@ juce::String PlaylistComponent::secondsToMinutes(double seconds)
 
 void PlaylistComponent::searchLibrary(juce::String searchText)
 {
-    DBG("Searching library for: " << searchText);
+    DBG("Searching titles for: " << searchText);
     if (searchText != "")
     {
         int rowNumber = whereInTracks(searchText);

@@ -79,7 +79,7 @@ void WaveformDisplay::loadURL(juce::URL audioURL) // DeckGUI needs to tell Wavef
 
 void WaveformDisplay::changeListenerCallback(juce::ChangeBroadcaster* source)
 {
-    DBG("changeBroadcaster!");
+    // DBG("changeBroadcaster!");
     repaint();
 }
 
