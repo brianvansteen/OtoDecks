@@ -42,13 +42,15 @@ PlaylistComponent::PlaylistComponent(DeckGUI* _deckGUI1, DeckGUI* _deckGUI2, DJA
     addToPlayer1Button.addListener(this);
     addToPlayer2Button.addListener(this);
 
-    searchField.setTextToShowWhenEmpty("Search Tracks (enter to submit)", juce::Colours::orange);
+    searchField.setTextToShowWhenEmpty("Search Library (enter to submit)", juce::Colours::orangered);
     searchField.onReturnKey = [this] { searchLibrary(searchField.getText()); };
 
     // setup table and load library from file
     library.getHeader().addColumn("Tracks", 1, 1);
     library.getHeader().addColumn("Length", 2, 1);
-    library.getHeader().addColumn("", 3, 1);
+    library.getHeader().addColumn("Artist", 3, 1);
+    library.getHeader().addColumn("Album", 4, 1);
+    library.getHeader().addColumn("delete", 5, 1);
     library.setModel(this);
     loadLibrary();
 }
@@ -61,20 +63,15 @@ PlaylistComponent::~PlaylistComponent()
 
 void PlaylistComponent::paint (juce::Graphics& g)
 {
-    /* This demo code just fills the component's background and draws some placeholder text to get you started.
-
-       You should replace everything in this method with your own drawing code..
-    */
-
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
+    g.fillAll(juce::Colour{ 30, 144, 255 });
 
     g.setColour (juce::Colours::grey);
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 
-    g.setColour (juce::Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("PlaylistComponent", getLocalBounds(),
-                juce::Justification::centred, true);   // draw some placeholder text
+    g.setColour (juce::Colours::orangered);
+    g.setFont (30.0f);
+    // g.drawText ("PlaylistComponent", getLocalBounds(),
+                //juce::Justification::centred, true);   // draw some placeholder text
 }
 
 void PlaylistComponent::resized()
@@ -82,18 +79,18 @@ void PlaylistComponent::resized()
     // This method is where you should set the bounds of any child components that your component contains..
 
     // tableComponent.setBounds(5, 5, getWidth() - 5, getHeight());
-
-    importButton.setBounds(0, 0, getWidth(), getHeight() / 16);
-    library.setBounds(0, 1 * getHeight() / 16, getWidth(), 13 * getHeight() / 16);
-    searchField.setBounds(0, 14 * getHeight() / 16, getWidth(), getHeight() / 16);
-    addToPlayer1Button.setBounds(0, 15 * getHeight() / 16, getWidth() / 2, getHeight() / 16);
-    addToPlayer2Button.setBounds(getWidth() / 2, 15 * getHeight() / 16, getWidth() / 2, getHeight() / 16);
+    importButton.setBounds(0.3 * getWidth(), 5, 0.4 * getWidth(), getHeight() / 10);
+    library.setBounds(20, 4 * getHeight() / 30, getWidth() - 40, 20 * getHeight() / 30);
+    searchField.setBounds(0, 16 * getHeight() / 20, getWidth(), getHeight() / 12);
+    addToPlayer1Button.setBounds(0, 18 * getHeight() / 20, getWidth() / 2, getHeight() / 10);
+    addToPlayer2Button.setBounds(getWidth() / 2, 18 * getHeight() / 20, getWidth() / 2, getHeight() / 10);
 
     //set columns
-    library.getHeader().setColumnWidth(1, 12.8 * getWidth() / 20);
-    library.getHeader().setColumnWidth(2, 5 * getWidth() / 20);
-    library.getHeader().setColumnWidth(3, 2 * getWidth() / 20);
-
+    library.getHeader().setColumnWidth(1, 4 * getWidth() / 20);
+    library.getHeader().setColumnWidth(2, 4 * getWidth() / 20);
+    library.getHeader().setColumnWidth(3, 4 * getWidth() / 20);
+    library.getHeader().setColumnWidth(4, 4 * getWidth() / 20);
+    library.getHeader().setColumnWidth(5, 2 * getWidth() / 20);
 }
 
 int PlaylistComponent::getNumRows()
@@ -105,29 +102,34 @@ void PlaylistComponent::paintRowBackground(juce::Graphics& g, int rowNumber, int
 {
     if (rowIsSelected)
     {
-        g.fillAll(juce::Colours::orange);
+        g.fillAll(juce::Colours::yellow);
     }
     else
     {
-        g.fillAll(juce::Colours::darkolivegreen);
+        g.fillAll(juce::Colours::darkslateblue);
     }
 }
 
 void PlaylistComponent::paintCell(juce::Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
     if (rowNumber < getNumRows())
-    {
-        g.drawText(tracks[rowNumber].length, 2, 0, width - 4, height, juce::Justification::centredLeft, true);
-    }
+        if (columnId == 1)
+        {
+            g.drawText(tracks[rowNumber].title, 2, 0, width - 4, height, juce::Justification::centredLeft, true);
+        }
+        if (columnId == 2)
+        {
+            g.drawText(tracks[rowNumber].length, 2, 0, width - 4, height, juce::Justification::centredLeft, true);
+        }
 }
 
 PlaylistComponent::Component* PlaylistComponent::refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, PlaylistComponent::Component *existingComponentToUpdate)
 {
-    if (columnId == 3)
+    if (columnId == 5)
     {
         if (existingComponentToUpdate == nullptr)
         {
-            juce::TextButton* btn = new juce::TextButton{ "*** Play ***" };
+            juce::TextButton* btn = new juce::TextButton{ "Delete Track" };
 
             juce::String id{ std::to_string(rowNumber) };
             btn->setComponentID(id);

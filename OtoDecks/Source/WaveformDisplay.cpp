@@ -32,7 +32,7 @@ void WaveformDisplay::paint (juce::Graphics& g)
        You should replace everything in this method with your own drawing code..
     */
 
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
+    g.fillAll(juce::Colour{ 220, 220, 220 });
 
     g.setColour (juce::Colours::grey);
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component

@@ -40,9 +40,9 @@ public:
 
 private:
 
-    juce::TextButton playButton{ "**** PLAY! ****" };
-    juce::TextButton stopButton{ "**** STOP ****" };
-    juce::TextButton loadButton{ "LOAD AUDIO" };
+    juce::TextButton playButton{ "**** PLAY TRACK! ****" };
+    juce::TextButton stopButton{ "**** STOP TRACK ****" };
+    juce::TextButton loadButton{ "LOAD SINGLE TRACK" };
 
     juce::Slider volSlider;
     juce::Label volLabel;

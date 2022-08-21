@@ -44,11 +44,11 @@ private:
     juce::TableListBox tableComponent;
     std::vector<Track> tracks;
 
-    juce::TextButton importButton{ "IMPORT TRACKS" };
+    juce::TextButton importButton{ "IMPORT AUDIO LIBRARY" };
     juce::TextEditor searchField;
     juce::TableListBox library;
-    juce::TextButton addToPlayer1Button{ "ADD TO DECK 1" };
-    juce::TextButton addToPlayer2Button{ "ADD TO DECK 2" };
+    juce::TextButton addToPlayer1Button{ "ADD TO LEFT DECK" };
+    juce::TextButton addToPlayer2Button{ "ADD TO RIGHT DECK" };
 
     DeckGUI* deckGUI1;
     DeckGUI* deckGUI2;

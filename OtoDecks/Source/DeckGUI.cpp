@@ -24,6 +24,7 @@ DeckGUI::DeckGUI(DJAudio* _player, juce::AudioFormatManager& formatManagerToUse,
     addAndMakeVisible(stopButton);
     addAndMakeVisible(loadButton);
 
+    getLookAndFeel().setColour(juce::Slider::thumbColourId, juce::Colours::orangered);
     addAndMakeVisible(volSlider);
     addAndMakeVisible(speedSlider);
     addAndMakeVisible(positionSlider);
@@ -93,13 +94,14 @@ void DeckGUI::resized()
     playButton.setBounds(10, 40, width, rowHeight);
     stopButton.setBounds(10, 50 + (rowHeight), width, rowHeight);
 
+    setColour(juce::Slider::thumbColourId, juce::Colours::red);
     volSlider.setBounds(sliderLeft, 60 + (rowHeight * 2), width - sliderLeft, rowHeight);
     speedSlider.setBounds(sliderLeft, 60 + (rowHeight * 3), width - sliderLeft, rowHeight);
     positionSlider.setBounds(sliderLeft, 60 + (rowHeight * 4), width - sliderLeft, rowHeight);
 
     waveFormDisplay.setBounds(5, 65 + (rowHeight * 5), width + 10, rowHeight * 3);
 
-    loadButton.setBounds(10, getHeight() - 30, width, rowHeight);
+    loadButton.setBounds(10, 18 * getHeight() / 20, width, rowHeight);
 
 }
 
@@ -194,6 +196,6 @@ void DeckGUI::loadFile(juce::URL audioURL)
 
 void DeckGUI::timerCallback()
 {
-    DBG("timer call back!");
+    // DBG("timer call back!");
     waveFormDisplay.setPositionRelative(player->getPositionRelative());
 }
