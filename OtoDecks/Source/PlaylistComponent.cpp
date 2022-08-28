@@ -48,9 +48,7 @@ PlaylistComponent::PlaylistComponent(DeckGUI* _deckGUI1, DeckGUI* _deckGUI2, DJA
     // setup table and load library from file
     library.getHeader().addColumn("Title", 1, 1);
     library.getHeader().addColumn("Length", 2, 1);
-    library.getHeader().addColumn("Artist", 3, 1);
-    library.getHeader().addColumn("Album", 4, 1);
-    library.getHeader().addColumn("delete", 5, 1);
+    library.getHeader().addColumn("Delete", 3, 1);
     library.setModel(this);
     loadLibrary();
 }
@@ -125,7 +123,7 @@ void PlaylistComponent::paintCell(juce::Graphics& g, int rowNumber, int columnId
 
 PlaylistComponent::Component* PlaylistComponent::refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, PlaylistComponent::Component *existingComponentToUpdate)
 {
-    if (columnId == 5)
+    if (columnId == 3)
     {
         if (existingComponentToUpdate == nullptr)
         {
@@ -136,6 +134,7 @@ PlaylistComponent::Component* PlaylistComponent::refreshComponentForCell(int row
 
             btn->addListener(this);
             existingComponentToUpdate = btn;
+            btn->setColour(juce::TextButton::buttonColourId, juce::Colours::darkslategrey);
         }
     }
     return existingComponentToUpdate;
@@ -289,7 +288,7 @@ int PlaylistComponent::whereInTracks(juce::String searchText)
 void PlaylistComponent::saveLibrary()
 {
     // create .csv to save library
-    std::ofstream myLibrary("my-library.csv");
+    std::ofstream myLibrary("audioLibrary.csv");
 
     // save library to file
     for (Track& t : tracks)
@@ -301,7 +300,7 @@ void PlaylistComponent::saveLibrary()
 void PlaylistComponent::loadLibrary()
 {
     // create input stream from saved library
-    std::ifstream myLibrary("my-library.csv");
+    std::ifstream myLibrary("audioLibrary.csv");
     std::string filePath;
     std::string length;
 

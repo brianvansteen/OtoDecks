@@ -24,7 +24,10 @@ DeckGUI::DeckGUI(DJAudio* _player, juce::AudioFormatManager& formatManagerToUse,
     addAndMakeVisible(stopButton);
     addAndMakeVisible(loadButton);
 
-    getLookAndFeel().setColour(juce::Slider::thumbColourId, juce::Colours::orangered);
+    otherLookAndFeel1.setColour(juce::Slider::thumbColourId, juce::Colours::orangered);
+    otherLookAndFeel2.setColour(juce::Slider::thumbColourId, juce::Colours::forestgreen);
+    otherLookAndFeel3.setColour(juce::Slider::thumbColourId, juce::Colours::cornflowerblue);
+    // getLookAndFeel().setColour(juce::Slider::thumbColourId, juce::Colours::orangered);
     addAndMakeVisible(volSlider);
     addAndMakeVisible(speedSlider);
     addAndMakeVisible(positionSlider);
@@ -35,20 +38,46 @@ DeckGUI::DeckGUI(DJAudio* _player, juce::AudioFormatManager& formatManagerToUse,
     stopButton.addListener(this);
     loadButton.addListener(this);
 
+    volSlider.setLookAndFeel(&otherLookAndFeel1);
+    volSlider.setSliderStyle(juce::Slider::Rotary);
     volSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
     volSlider.setRange(0.0, 1.0);
+    volSlider.setValue(0.5);
+    volSlider.setNumDecimalPlacesToDisplay(2);
+    volSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 60, volSlider.getTextBoxHeight());
     addAndMakeVisible(volLabel);
     volLabel.setText("Volume", juce::dontSendNotification);
     volLabel.attachToComponent(&volSlider, true);
 
+    speedSlider.setLookAndFeel(&otherLookAndFeel2);
+    speedSlider.setSliderStyle(juce::Slider::Rotary);
     speedSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
     speedSlider.setRange(0.0, 2.0);
+    speedSlider.setValue(1.0);
+    speedSlider.setNumDecimalPlacesToDisplay(2);
+    speedSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 60, speedSlider.getTextBoxHeight());
     addAndMakeVisible(speedLabel);
     speedLabel.setText("Speed", juce::dontSendNotification);
     speedLabel.attachToComponent(&speedSlider, true);
 
+    addAndMakeVisible(freqSlider);
+    freqSlider.setRange(50, 5000.0);
+    freqSlider.setTextValueSuffix(" Hz");
+    freqSlider.setValue(500.0);
+    freqSlider.addListener(this);
+    freqSlider.setSkewFactorFromMidPoint(500);
+    freqSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 120, freqSlider.getTextBoxHeight());
+    addAndMakeVisible(freqLabel);
+    freqLabel.setText("Frequency", juce::dontSendNotification);
+    freqLabel.attachToComponent(&freqSlider, true);
+
+    positionSlider.setLookAndFeel(&otherLookAndFeel3);
+    // positionSlider.setSliderStyle(juce::Slider::Rotary);
     positionSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
     positionSlider.setRange(0.0, 1.0);
+    positionSlider.setTextValueSuffix(" % of track");
+    positionSlider.setNumDecimalPlacesToDisplay(2);
+    positionSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 120, positionSlider.getTextBoxHeight());
     addAndMakeVisible(positionLabel);
     positionLabel.setText("Position", juce::dontSendNotification);
     positionLabel.attachToComponent(&positionSlider, true);
@@ -91,17 +120,23 @@ void DeckGUI::resized()
     double width = (getWidth() - 20);
     auto sliderLeft = 60;
 
-    playButton.setBounds(10, 40, width, rowHeight);
-    stopButton.setBounds(10, 50 + (rowHeight), width, rowHeight);
+    auto border = 4;
 
-    setColour(juce::Slider::thumbColourId, juce::Colours::red);
-    volSlider.setBounds(sliderLeft, 60 + (rowHeight * 2), width - sliderLeft, rowHeight);
-    speedSlider.setBounds(sliderLeft, 60 + (rowHeight * 3), width - sliderLeft, rowHeight);
-    positionSlider.setBounds(sliderLeft, 60 + (rowHeight * 4), width - sliderLeft, rowHeight);
+    auto area = getLocalBounds();
 
-    waveFormDisplay.setBounds(5, 65 + (rowHeight * 5), width + 10, rowHeight * 3);
+    auto dialArea = area.removeFromTop(area.getHeight() * 2);
 
-    loadButton.setBounds(10, 18 * getHeight() / 20, width, rowHeight);
+    playButton.setBounds(15, 40, (width / 3) - 10, rowHeight);
+    stopButton.setBounds((width / 3) + 15, 40, (width / 3) - 10, rowHeight);
+    loadButton.setBounds(2 * (width / 3) + 15, 40, (width / 3) - 10, rowHeight);
+
+    //setColour(juce::Slider::thumbColourId, juce::Colours::red);
+    volSlider.setBounds(sliderLeft, 10 + (rowHeight * 2), width / 2 - sliderLeft, rowHeight * 4);
+    speedSlider.setBounds(sliderLeft + width / 2, 10 + (rowHeight * 2), width / 2 - sliderLeft, rowHeight * 4);
+    positionSlider.setBounds(sliderLeft, 10 + (rowHeight * 5), width - sliderLeft, rowHeight * 2);
+    freqSlider.setBounds(sliderLeft, 10 + (rowHeight * 7), width - sliderLeft, rowHeight * 2);
+
+    waveFormDisplay.setBounds(5, 8 * (getHeight() / 10), width + 10, rowHeight * 2.2);
 
 }
 

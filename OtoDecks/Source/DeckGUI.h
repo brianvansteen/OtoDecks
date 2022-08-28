@@ -40,14 +40,20 @@ public:
 
 private:
 
-    juce::TextButton playButton{ "**** PLAY TRACK! ****" };
-    juce::TextButton stopButton{ "**** STOP TRACK ****" };
+    juce::LookAndFeel_V4 otherLookAndFeel1;
+    juce::LookAndFeel_V4 otherLookAndFeel2;
+    juce::LookAndFeel_V4 otherLookAndFeel3;
+
+    juce::TextButton playButton{ "PLAY TRACK!" };
+    juce::TextButton stopButton{ "STOP TRACK" };
     juce::TextButton loadButton{ "LOAD SINGLE TRACK" };
 
     juce::Slider volSlider;
     juce::Label volLabel;
     juce::Slider speedSlider;
     juce::Label speedLabel;
+    juce::Slider freqSlider;
+    juce::Label freqLabel;
     juce::Slider positionSlider;
     juce::Label positionLabel;
 
