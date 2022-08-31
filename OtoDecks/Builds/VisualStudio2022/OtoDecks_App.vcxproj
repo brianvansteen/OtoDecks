@@ -142,7 +142,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Track.cpp"/>
-    <ClCompile Include="..\..\Source\Graphing.cpp"/>
     <ClCompile Include="..\..\Source\PlaylistComponent.cpp"/>
     <ClCompile Include="..\..\Source\WaveformDisplay.cpp"/>
     <ClCompile Include="..\..\Source\DeckGUI.cpp"/>
@@ -2287,7 +2286,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Track.h"/>
-    <ClInclude Include="..\..\Source\Graphing.h"/>
     <ClInclude Include="..\..\Source\PlaylistComponent.h"/>
     <ClInclude Include="..\..\Source\WaveformDisplay.h"/>
     <ClInclude Include="..\..\Source\DeckGUI.h"/>
