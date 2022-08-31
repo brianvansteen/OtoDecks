@@ -52,7 +52,7 @@ DeckGUI::DeckGUI(DJAudio* _player, juce::AudioFormatManager& formatManagerToUse,
     speedSlider.setLookAndFeel(&otherLookAndFeel2);
     speedSlider.setSliderStyle(juce::Slider::Rotary);
     speedSlider.addListener(this); // thing that wants to receive the events needs to tell the GUI object that is wants to register for events
-    speedSlider.setRange(0.0, 2.0);
+    speedSlider.setRange(0.1, 2.0);
     speedSlider.setValue(1.0);
     speedSlider.setNumDecimalPlacesToDisplay(2);
     speedSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 60, speedSlider.getTextBoxHeight());
@@ -60,16 +60,16 @@ DeckGUI::DeckGUI(DJAudio* _player, juce::AudioFormatManager& formatManagerToUse,
     speedLabel.setText("Speed", juce::dontSendNotification);
     speedLabel.attachToComponent(&speedSlider, true);
 
-    addAndMakeVisible(freqSlider);
-    freqSlider.setRange(50, 5000.0);
-    freqSlider.setTextValueSuffix(" Hz");
-    freqSlider.setValue(500.0);
-    freqSlider.addListener(this);
-    freqSlider.setSkewFactorFromMidPoint(500);
-    freqSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 120, freqSlider.getTextBoxHeight());
-    addAndMakeVisible(freqLabel);
-    freqLabel.setText("Frequency", juce::dontSendNotification);
-    freqLabel.attachToComponent(&freqSlider, true);
+    addAndMakeVisible(dampingSlider);
+    dampingSlider.setRange(1, 1000.0);
+    dampingSlider.setTextValueSuffix(" factor");
+    dampingSlider.setValue(10.0);
+    dampingSlider.addListener(this);
+    dampingSlider.setSkewFactorFromMidPoint(500);
+    dampingSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 120, dampingSlider.getTextBoxHeight());
+    addAndMakeVisible(dampingLabel);
+    dampingLabel.setText("Damping", juce::dontSendNotification);
+    dampingLabel.attachToComponent(&dampingSlider, true);
 
     positionSlider.setLookAndFeel(&otherLookAndFeel3);
     // positionSlider.setSliderStyle(juce::Slider::Rotary);
@@ -134,7 +134,7 @@ void DeckGUI::resized()
     volSlider.setBounds(sliderLeft, 10 + (rowHeight * 2), width / 2 - sliderLeft, rowHeight * 4);
     speedSlider.setBounds(sliderLeft + width / 2, 10 + (rowHeight * 2), width / 2 - sliderLeft, rowHeight * 4);
     positionSlider.setBounds(sliderLeft, 10 + (rowHeight * 5), width - sliderLeft, rowHeight * 2);
-    freqSlider.setBounds(sliderLeft, 10 + (rowHeight * 7), width - sliderLeft, rowHeight * 2);
+    dampingSlider.setBounds(sliderLeft, 10 + (rowHeight * 7), width - sliderLeft, rowHeight * 2);
 
     waveFormDisplay.setBounds(5, 8 * (getHeight() / 10), width + 10, rowHeight * 2.2);
 

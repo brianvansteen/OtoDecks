@@ -52,8 +52,8 @@ private:
     juce::Label volLabel;
     juce::Slider speedSlider;
     juce::Label speedLabel;
-    juce::Slider freqSlider;
-    juce::Label freqLabel;
+    juce::Slider dampingSlider;
+    juce::Label dampingLabel;
     juce::Slider positionSlider;
     juce::Label positionLabel;
 
