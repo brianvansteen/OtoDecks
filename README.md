@@ -1,1 +1,3 @@
-### Final project for OOP
+### Final project, OOP
+
+Brian Van Steen
